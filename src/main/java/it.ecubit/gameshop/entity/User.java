@@ -1,4 +1,4 @@
-package entity;
+package it.ecubit.gameshop.entity;
 
 import jakarta.persistence.*;
 

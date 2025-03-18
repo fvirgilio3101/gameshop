@@ -1,4 +1,4 @@
-package entity;
+package it.ecubit.gameshop.entity;
 
 import jakarta.persistence.*;
 
@@ -14,7 +14,7 @@ public class Payment {
     private Long idPayment;
     @OneToOne
     @JoinColumn(name="ID",insertable = false, updatable = false)
-    private Order orderId;
+    private Order order;
     @Column(name="Payment_Status", nullable = false)
     private boolean payment_status;
     @Column(name="Payment_Method", nullable = false, length = 50)
@@ -25,8 +25,8 @@ public class Payment {
     public Long getIdPayment(){
         return this.idPayment;
     }
-    public Long getOrderId(){
-        return this.orderId;
+    public Order getOrderId(){
+        return this.order;
     }
     public boolean getPaymentStatus(){
         return this.payment_status;
@@ -41,8 +41,8 @@ public class Payment {
     public void setIdPayment(Long idPayment){
         this.idPayment = idPayment;
     }
-    public void setOrderId(Long orderId){
-        this.orderId = orderId;
+    public void setOrder(Order order){
+        this.order = order;
     }
     public void setPayment_status(boolean payment_status){
         this.payment_status = payment_status;
