@@ -2,6 +2,7 @@ package it.ecubit.gameshop;
 
 import jakarta.annotation.PreDestroy;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -13,11 +14,11 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return super.configure(builder);
+        return builder.sources(EcubitGameshopServiceApplication.class);
     }
 
     @Override
-    public void onStartup(jakarta.servlet.ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
     }
 
