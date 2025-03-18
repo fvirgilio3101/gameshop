@@ -13,8 +13,8 @@ public class Payment {
     @Column(name="ID", nullable = false, length = 18)
     private Long idPayment;
     @OneToOne
-    @JoinColumn(name="Order_ID",insertable = false, updatable = false)
-    private Long orderId;
+    @JoinColumn(name="ID",insertable = false, updatable = false)
+    private Order orderId;
     @Column(name="Payment_Status", nullable = false)
     private boolean payment_status;
     @Column(name="Payment_Method", nullable = false, length = 50)
