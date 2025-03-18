@@ -25,7 +25,7 @@ public class Payment {
     public Long getIdPayment(){
         return this.idPayment;
     }
-    public Order getOrderId(){
+    public Order getOrder(){
         return this.order;
     }
     public boolean getPaymentStatus(){
