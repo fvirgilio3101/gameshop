@@ -1,11 +1,8 @@
 package it.ecubit.gameshop.controller;
 
-import it.ecubit.gameshop.entity.User;
 import it.ecubit.gameshop.entity.Videogame;
-import it.ecubit.gameshop.service.UserService;
 import it.ecubit.gameshop.service.VideogameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
