@@ -1,6 +1,7 @@
 package it.ecubit.gameshop.service;
 
 import it.ecubit.gameshop.entity.Order;
+import it.ecubit.gameshop.entity.User;
 import it.ecubit.gameshop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Override
-    public List<Order> readAllByUserId(Long userId) {
-        return this.orderRepository.findAllByUserId(userId) ;
+    public List<Order> readAllByUser(User user) {
+        return this.orderRepository.findAllByUser(user) ;
     }
 
     @Override
