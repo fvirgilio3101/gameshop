@@ -1,7 +1,9 @@
 package it.ecubit.gameshop.controller;
 
 import it.ecubit.gameshop.entity.User;
+import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.service.UserService;
+import it.ecubit.gameshop.service.VideogameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,24 +11,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
-public class UserController {
+@RequestMapping("api/videogame")
+public class VideogameController {
     @Autowired
-    private UserService service;
+    private VideogameService service;
     @GetMapping
-    public List<User> readAll(){
-       return this.service.readAll();
+    public List<Videogame> readAll(){
+        return this.service.readAll();
     }
     @PostMapping()
-    public User create(@RequestBody User toSave){
+    public Videogame create(@RequestBody Videogame toSave){
         return this.service.save(toSave);
     }
     @PutMapping()
-    public User save(@RequestBody User toSave){
+    public Videogame save(@RequestBody Videogame toSave){
         return this.service.save(toSave);
     }
     @DeleteMapping
-    public void delete(@RequestBody User toDelete){
-         this.service.deleteUser(toDelete);
+    public void delete(@RequestBody Videogame toDelete){
+        this.service.deleteVideogame(toDelete);
     }
 }
