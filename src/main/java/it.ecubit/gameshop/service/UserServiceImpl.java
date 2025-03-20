@@ -18,14 +18,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> readAll() {
-        List<User> users = this.userRepository.findAll();
-        return users;
+        return this.userRepository.findAll();
     }
 
     @Override
     public User read(User user) {
-        User entity = this.userRepository.getReferenceById(user.getIdUser());
-        return entity;
+        return this.userRepository.getReferenceById(user.getIdUser());
     }
 
     @Override
