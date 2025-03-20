@@ -4,9 +4,11 @@ import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.repository.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class VideogameServiceImpl implements VideogameService{
 
     @Autowired

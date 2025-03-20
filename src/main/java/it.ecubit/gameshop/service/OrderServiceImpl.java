@@ -3,9 +3,11 @@ package it.ecubit.gameshop.service;
 import it.ecubit.gameshop.entity.Order;
 import it.ecubit.gameshop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
