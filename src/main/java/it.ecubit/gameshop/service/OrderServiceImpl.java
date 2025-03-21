@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
             log.info("Ordine eliminato correttamente");
         }catch (EmptyResultDataAccessException e) {
             log.warn("Tentativo di eliminare un ordine non esistente con ID {}", order.getIdOrder());
-            throw new EntityNotFoundException("L'ordine con ID " + order.getIdOrder() + " non esiste");
+            throw new EntityNotFoundException("Si è verificato un problema durante l'eliminazione dell' ordine");
         } catch (Exception e) {
             log.error("Errore durante l'eliminazione dell'ordine con ID {}", order.getIdOrder(), e);
             throw new RuntimeException("Errore durante l'eliminazione dell'ordine", e);

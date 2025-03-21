@@ -3,9 +3,10 @@ package it.ecubit.gameshop.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="Order")
+@Table(name="GSOrder")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +17,13 @@ public class Order {
     private User user;
     @Column(name="User_ID",nullable = false)
     private Long idUserOrder;
-    @ManyToOne
-    @JoinColumn(name="Videogame_ID",nullable = false,insertable = false,updatable = false)
-    private Videogame videogame;
-    @Column(name="Videogame_ID",nullable = false)
-    private Long idVideogameOrder;
+    @ManyToMany
+    @JoinTable(
+            name="Order_Videogame",
+            joinColumns = @JoinColumn(name = "Order_ID"),
+            inverseJoinColumns = @JoinColumn(name = "Videogame_ID")
+    )
+    private List<Videogame> videogames;
     @Column(name="Order_Date",nullable = false)
     private Date dateOrder;
     @Column(name="Total_price",nullable = false,length = 18)
@@ -52,20 +55,12 @@ public class Order {
         this.idUserOrder = idUserOrder;
     }
 
-    public Videogame getVideogame() {
-        return videogame;
+    public List<Videogame> getVideogames() {
+        return videogames;
     }
 
-    public void setVideogame(Videogame videogame) {
-        this.videogame = videogame;
-    }
-
-    public Long getIdVideogameOrder() {
-        return idVideogameOrder;
-    }
-
-    public void setIdVideogameOrder(Long idVideogameOrder) {
-        this.idVideogameOrder = idVideogameOrder;
+    public void setVideogames(List<Videogame> videogames) {
+        this.videogames = videogames;
     }
 
     public Date getDateOrder() {

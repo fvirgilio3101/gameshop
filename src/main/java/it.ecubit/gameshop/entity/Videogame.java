@@ -1,13 +1,8 @@
 package it.ecubit.gameshop.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name="Videogame")
 public class Videogame {
@@ -15,14 +10,21 @@ public class Videogame {
     @GeneratedValue
     @Column(name="ID", nullable = false, length = 18)
     private Long idVideogame;
+
     @Column(name="Title",nullable = false, length= 50)
     private String titleVideogame;
+
     @Column(name="Genre",nullable = false, length= 50)
     private String genreVideogame;
+
     @Column(name="Price",nullable = false, length= 50)
     private Double priceVideogame;
+
     @Column(name="Description",nullable = false, length= 50)
     private String descVideogame;
+
+    @ManyToMany(mappedBy = "videogames")
+    private List<Order> orders;
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -42,6 +44,14 @@ public class Videogame {
 
     public String getDescVideogame() {
         return descVideogame;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public void setIdVideogame(long idVideogame) {
