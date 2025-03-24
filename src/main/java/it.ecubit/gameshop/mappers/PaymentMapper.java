@@ -9,5 +9,5 @@ public interface PaymentMapper {
 
     PaymentDTO paymentToPaymentDTO(Payment payment);
 
-    Payment dtoToPayment(PaymentDTO dto);
+    Payment paymentDTOToPayment(PaymentDTO dto);
 }

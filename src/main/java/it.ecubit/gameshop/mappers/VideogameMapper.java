@@ -9,5 +9,5 @@ public interface VideogameMapper {
 
     VideogameDTO videogameToVideogameDTO(Videogame videogame);
 
-    Videogame dtoToVideogame(VideogameDTO dto);
+    Videogame videogameDTOToVideogame(VideogameDTO dto);
 }
