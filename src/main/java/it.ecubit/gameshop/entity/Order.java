@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="GSOrder")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +19,7 @@ public class Order {
     private User user;
     @Column(name="User_ID",nullable = false)
     private Long idUserOrder;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name="Order_Videogame",
             joinColumns = @JoinColumn(name = "Order_ID"),

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<Order> readAllByUser(User user);
-
+    List<Order> readAllByIdUserOrder(Long userId);
     Order read(Order order);
 
     Order save(Order order);
 
+    Order addVideogame(Long orderId,List<Long> videogamesIds);
     void deleteOrder(Order order);
 
     void deleteAll();

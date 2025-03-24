@@ -7,9 +7,9 @@ import java.util.List;
 @Table(name="Videogame")
 public class Videogame {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable = false, length = 18)
-    private Long idVideogame;
+    private Long id;
 
     @Column(name="Title",nullable = false, length= 50)
     private String titleVideogame;
@@ -23,11 +23,11 @@ public class Videogame {
     @Column(name="Description",nullable = false, length= 50)
     private String descVideogame;
 
-    @ManyToMany(mappedBy = "videogames")
+    @ManyToMany( cascade = { CascadeType.ALL },mappedBy = "videogames")
     private List<Order> orders;
 
     public Long getIdVideogame() {
-        return idVideogame;
+        return id;
     }
 
     public String getTitleVideogame() {
@@ -55,7 +55,7 @@ public class Videogame {
     }
 
     public void setIdVideogame(long idVideogame) {
-        this.idVideogame = idVideogame;
+        this.id = idVideogame;
     }
 
     public void setTitleVideogame(String titleVideogame) {

@@ -13,17 +13,25 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService service;
-    @GetMapping
-    public List<Order> readAll(User user){
-        return this.service.readAllByUser(user);
+
+    @GetMapping(value = "/{userId}")
+    public List<Order> readAll(@PathVariable("userId") Long userId){
+        return this.service.readAllByIdUserOrder(userId);
     }
+
     @PostMapping()
     public Order create(@RequestBody Order toSave){
         return this.service.save(toSave);
     }
+
     @PutMapping()
     public Order save(@RequestBody Order toSave){
         return this.service.save(toSave);
+    }
+
+    @PutMapping(value="/{orderId}/videogames")
+    public Order addVideogames(@PathVariable("orderId")Long orderId,@RequestBody List<Long> videogameIds){
+        return this.service.addVideogame(orderId,videogameIds);
     }
     @DeleteMapping
     public void delete(@RequestBody Order toDelete){
