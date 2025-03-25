@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.controller;
 
+import it.ecubit.gameshop.dto.PaymentDTO;
 import it.ecubit.gameshop.entity.Payment;
 import it.ecubit.gameshop.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,15 @@ public class PaymentController {
     @Autowired
     private PaymentService service;
     @GetMapping
-    public List<Payment> readAll(){
+    public List<PaymentDTO> readAll(){
         return this.service.readAll();
     }
     @PostMapping()
-    public Payment create(@RequestBody Payment toSave){
+    public PaymentDTO create(@RequestBody PaymentDTO toSave){
         return this.service.save(toSave);
     }
     @PutMapping()
-    public Payment save(@RequestBody Payment toSave){
+    public PaymentDTO save(@RequestBody PaymentDTO toSave){
         return this.service.save(toSave);
     }
 }
