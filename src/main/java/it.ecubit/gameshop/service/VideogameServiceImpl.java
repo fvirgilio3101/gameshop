@@ -1,9 +1,12 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.dto.GenreDTO;
 import it.ecubit.gameshop.dto.VideogameDTO;
+import it.ecubit.gameshop.entity.Genre;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.mappers.UserMapper;
 import it.ecubit.gameshop.mappers.VideogameMapper;
+import it.ecubit.gameshop.repository.GenreRepository;
 import it.ecubit.gameshop.repository.VideogameRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class VideogameServiceImpl implements VideogameService {
 
     @Autowired
     private VideogameRepository videogameRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
 
     private VideogameMapper videogameMapper;
 
@@ -79,6 +85,25 @@ public class VideogameServiceImpl implements VideogameService {
             log.error("Errore durante il salvataggio del videogioco", e);
             throw new RuntimeException("Errore durante il salvataggio del videogioco", e);
         }
+    }
+
+    @Override
+    public VideogameDTO addGenre(List<Long> genreIds, Long id) {
+        Videogame videogame = this.videogameRepository.getReferenceById(id);
+        List<Genre> genres = this.genreRepository.findAllById(genreIds);
+        videogame.getGenres().addAll(genres);
+        this.videogameRepository.save(videogame);
+        return this.videogameMapper.videogameToVideogameDTO(videogame);
+
+    }
+
+    @Override
+    public List<VideogameDTO> getTopGamesByGenre(String genre) {
+        List<VideogameDTO> dtos = this.videogameRepository.findTopGamesByGenre(genre)
+                .stream()
+                .map(videogameMapper::videogameToVideogameDTO)
+                .toList();
+        return dtos;
     }
 
 

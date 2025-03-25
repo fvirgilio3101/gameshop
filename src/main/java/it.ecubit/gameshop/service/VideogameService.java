@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.dto.GenreDTO;
 import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Videogame;
 
@@ -14,6 +15,10 @@ public interface VideogameService {
     List<VideogameDTO> readByFilter(VideogameDTO dto);
 
     VideogameDTO save(VideogameDTO dto);
+
+    VideogameDTO addGenre(List<Long> genreIds,Long id);
+
+    List<VideogameDTO> getTopGamesByGenre(String genre);
 
     void deleteVideogame(VideogameDTO dtos);
 

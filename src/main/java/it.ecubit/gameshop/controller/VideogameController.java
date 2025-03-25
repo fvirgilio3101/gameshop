@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.controller;
 
+import it.ecubit.gameshop.dto.GenreDTO;
 import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.service.VideogameService;
@@ -28,5 +29,9 @@ public class VideogameController {
     @DeleteMapping
     public void delete(@RequestBody VideogameDTO toDelete){
         this.service.deleteVideogame(toDelete);
+    }
+    @GetMapping(value="/genre/{genre_name}")
+    public List<VideogameDTO> getTopGamesByGenre(@PathVariable("genre_name") String genre){
+        return this.service.getTopGamesByGenre(genre);
     }
 }
