@@ -9,13 +9,18 @@ public class Videogame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID", nullable = false, length = 18)
-    private Long id;
+    private Long idVideogame;
 
     @Column(name="Title",nullable = false, length= 50)
     private String titleVideogame;
 
-    @Column(name="Genre",nullable = false, length= 50)
-    private String genreVideogame;
+    @ManyToMany(cascade= CascadeType.ALL)
+    @JoinTable(
+            name="Videogame_Genre",
+            joinColumns = @JoinColumn(name = "Videogame_ID"),
+            inverseJoinColumns = @JoinColumn(name = "Genre_ID")
+    )
+    private List<Genre> genres;
 
     @Column(name="Price",nullable = false, length= 50)
     private Double priceVideogame;
@@ -26,16 +31,27 @@ public class Videogame {
     @ManyToMany( cascade = { CascadeType.ALL },mappedBy = "videogames")
     private List<Order> orders;
 
+    @Column(name="Rating",nullable = false, length= 50)
+    private double rating;
+
     public Long getIdVideogame() {
-        return id;
+        return idVideogame;
+    }
+
+    public void setPriceVideogame(Double priceVideogame) {
+        this.priceVideogame = priceVideogame;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public String getTitleVideogame() {
         return titleVideogame;
-    }
-
-    public String getGenreVideogame() {
-        return genreVideogame;
     }
 
     public Double getPriceVideogame() {
@@ -55,15 +71,11 @@ public class Videogame {
     }
 
     public void setIdVideogame(long idVideogame) {
-        this.id = idVideogame;
+        this.idVideogame = idVideogame;
     }
 
     public void setTitleVideogame(String titleVideogame) {
         this.titleVideogame = titleVideogame;
-    }
-
-    public void setGenreVideogame(String genreVideogame) {
-        this.genreVideogame = genreVideogame;
     }
 
     public void setPriceVideogame(double priceVideogame) {
@@ -72,5 +84,17 @@ public class Videogame {
 
     public void setDescVideogame(String descVideogame) {
         this.descVideogame = descVideogame;
+    }
+
+    public void setIdVideogame(Long idVideogame) {
+        this.idVideogame = idVideogame;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 }
