@@ -2,13 +2,15 @@ package it.ecubit.gameshop.dto;
 
 import jakarta.persistence.Column;
 
+import java.util.List;
+
 public class VideogameDTO {
 
     private Long id;
 
     private String titleVideogame;
 
-    private String genreVideogame;
+    private List<GenreDTO> genres;
 
     private Double priceVideogame;
 
@@ -31,12 +33,12 @@ public class VideogameDTO {
         this.titleVideogame = titleVideogame;
     }
 
-    public String getGenreVideogame() {
-        return genreVideogame;
+    public List<GenreDTO> getGenres() {
+        return genres;
     }
 
-    public void setGenreVideogame(String genreVideogame) {
-        this.genreVideogame = genreVideogame;
+    public void setGenres(List<GenreDTO> genres) {
+        this.genres = genres;
     }
 
     public Double getPriceVideogame() {
