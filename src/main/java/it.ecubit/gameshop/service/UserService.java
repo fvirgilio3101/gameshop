@@ -1,18 +1,19 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.dto.UserDTO;
 import it.ecubit.gameshop.entity.User;
 
 import java.util.List;
 
 public interface UserService {
 
-     List<User> readAll();
+     List<UserDTO> readAll();
 
-     User read(User user);
+     UserDTO read(UserDTO dto);
 
-     User save(User user);
+     UserDTO save(UserDTO dto);
 
-     void deleteUser(User user);
+     void deleteUser(UserDTO dtos);
 
-     void deleteAll(List<User> users);
+     void deleteAll(List<UserDTO> users);
 }
