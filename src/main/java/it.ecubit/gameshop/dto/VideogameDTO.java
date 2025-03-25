@@ -6,7 +6,7 @@ import java.util.List;
 
 public class VideogameDTO {
 
-    private Long id;
+    private Long idVideogame;
 
     private String titleVideogame;
 
@@ -16,13 +16,15 @@ public class VideogameDTO {
 
     private String descVideogame;
 
+    private double rating;
+
 
     public Long getIdVideogame() {
-        return id;
+        return idVideogame;
     }
 
-    public void setIdVideogame(Long id) {
-        this.id = id;
+    public void setIdVideogame(Long idVideogame) {
+        this.idVideogame = idVideogame;
     }
 
     public String getTitleVideogame() {
@@ -55,5 +57,13 @@ public class VideogameDTO {
 
     public void setDescVideogame(String descVideogame) {
         this.descVideogame = descVideogame;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
