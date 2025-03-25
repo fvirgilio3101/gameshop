@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.controller;
 
+import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.service.VideogameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,19 @@ public class VideogameController {
     @Autowired
     private VideogameService service;
     @GetMapping
-    public List<Videogame> readAll(){
+    public List<VideogameDTO> readAll(){
         return this.service.readAll();
     }
     @PostMapping()
-    public Videogame create(@RequestBody Videogame toSave){
+    public VideogameDTO create(@RequestBody VideogameDTO toSave){
         return this.service.save(toSave);
     }
     @PutMapping()
-    public Videogame save(@RequestBody Videogame toSave){
+    public VideogameDTO save(@RequestBody VideogameDTO toSave){
         return this.service.save(toSave);
     }
     @DeleteMapping
-    public void delete(@RequestBody Videogame toDelete){
+    public void delete(@RequestBody VideogameDTO toDelete){
         this.service.deleteVideogame(toDelete);
     }
 }

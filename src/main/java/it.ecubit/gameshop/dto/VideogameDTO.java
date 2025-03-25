@@ -15,11 +15,11 @@ public class VideogameDTO {
     private String descVideogame;
 
 
-    public Long getId() {
+    public Long getIdVideogame() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setIdVideogame(Long id) {
         this.id = id;
     }
 

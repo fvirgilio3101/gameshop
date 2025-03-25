@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.dto.OrderDTO;
 import it.ecubit.gameshop.entity.Order;
 import it.ecubit.gameshop.entity.User;
 
@@ -7,13 +8,13 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<Order> readAllByIdUserOrder(Long userId);
-    Order read(Order order);
+    List<OrderDTO> readAllByIdUserOrder(Long userId);
+    OrderDTO read(OrderDTO order);
 
-    Order save(Order order);
+    OrderDTO save(OrderDTO order);
 
-    Order addVideogame(Long orderId,List<Long> videogamesIds);
-    void deleteOrder(Order order);
+    OrderDTO addVideogame(Long orderId,List<Long> videogamesIds);
+    void deleteOrder(OrderDTO order);
 
     void deleteAll();
 }

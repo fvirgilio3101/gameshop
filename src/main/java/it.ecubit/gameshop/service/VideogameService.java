@@ -1,20 +1,21 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Videogame;
 
 import java.util.List;
 
 public interface VideogameService {
 
-    List<Videogame> readAll();
+    List<VideogameDTO> readAll();
 
-    Videogame read(Videogame videogame);
+    VideogameDTO read(VideogameDTO dto);
 
-    List<Videogame> readByFilter(Videogame videogame);
+    List<VideogameDTO> readByFilter(VideogameDTO dto);
 
-    Videogame save(Videogame videogame);
+    VideogameDTO save(VideogameDTO dto);
 
-    void deleteVideogame(Videogame videogame);
+    void deleteVideogame(VideogameDTO dtos);
 
     void deleteAll();
 
