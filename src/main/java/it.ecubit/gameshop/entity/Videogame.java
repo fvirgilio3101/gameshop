@@ -1,10 +1,12 @@
 package it.ecubit.gameshop.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name="Videogame")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Videogame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
