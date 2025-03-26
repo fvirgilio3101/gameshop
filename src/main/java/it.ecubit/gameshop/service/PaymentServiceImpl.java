@@ -19,6 +19,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    @Autowired
     private PaymentMapper paymentMapper;
 
     @Override

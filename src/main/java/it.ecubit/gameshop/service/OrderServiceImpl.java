@@ -28,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private VideogameRepository videogameRepository;
 
+    @Autowired
     private OrderMapper orderMapper;
     @Override
     public List<OrderDTO> readAllByIdUserOrder(Long userId) {

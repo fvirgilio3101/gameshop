@@ -4,7 +4,7 @@ import it.ecubit.gameshop.dto.OrderDTO;
 import it.ecubit.gameshop.entity.Order;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface OrderMapper {
 
     OrderDTO orderToOrderDTO(Order order);

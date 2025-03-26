@@ -27,6 +27,7 @@ public class VideogameServiceImpl implements VideogameService {
     @Autowired
     private GenreRepository genreRepository;
 
+    @Autowired
     private VideogameMapper videogameMapper;
 
     @Override
