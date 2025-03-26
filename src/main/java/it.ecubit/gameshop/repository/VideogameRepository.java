@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface VideogameRepository extends JpaRepository<Videogame, Long> {
 
-    @Query("SELECT v FROM VideoGame v JOIN v.genres g WHERE g.name = :genre ORDER BY v.rating DESC")
+    @Query("SELECT v FROM Videogame v JOIN v.genres g WHERE g.name = :genre ORDER BY v.rating DESC")
     List<Videogame> findTopGamesByGenre(@Param("genre") String genre);
 
 }

@@ -13,7 +13,7 @@ public class Genre {
     @Column(name="ID", nullable = false, length = 18)
     private Long idGenre;
 
-    @Column(name="Title",nullable = false, length= 50)
+    @Column(name="Name",nullable = false, length= 50)
     private String name;
 
     @ManyToMany(cascade = CascadeType.REMOVE,mappedBy = "genres")

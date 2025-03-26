@@ -20,6 +20,7 @@ public class GenreServiceImpl implements GenreService{
 
     private static final Logger log = LoggerFactory.getLogger(GenreServiceImpl.class);
 
+    @Autowired
     private GenreMapper genreMapper;
 
     @Autowired
@@ -56,8 +57,10 @@ public class GenreServiceImpl implements GenreService{
     @Override
     public GenreDTO save(GenreDTO dto) {
         try{
-            Genre entity = this.genreRepository.save(this.genreMapper.genreDTOtoGenre(dto));
-            log.info("Videogames associati: {}", dto.getVideogames());
+            Genre genreToSave = this.genreMapper.genreDTOtoGenre(dto);
+            log.info("Prima del salvataggio: {}", genreToSave);
+            Genre entity = this.genreRepository.save(genreToSave);
+            log.info("Dopo il salvataggio: {}", entity);
             return this.genreMapper.genreToGenreDTO(entity);
         }catch (
         DataIntegrityViolationException e) {

@@ -4,11 +4,14 @@ package it.ecubit.gameshop.dto;
 import java.util.List;
 
 public class GenreDTO {
-    private long idGenre;
+
+    private Long idGenre;
+
     private String name;
+
     private List<VideogameDTO> videogames;
 
-    public long getIdGenre() {
+    public Long getIdGenre() {
         return idGenre;
     }
 
@@ -16,7 +19,7 @@ public class GenreDTO {
         return name;
     }
 
-    public void setIdGenre(long idGenre) {
+    public void setIdGenre(Long idGenre) {
         this.idGenre = idGenre;
     }
 

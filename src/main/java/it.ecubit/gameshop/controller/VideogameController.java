@@ -31,8 +31,8 @@ public class VideogameController {
         this.service.deleteVideogame(toDelete);
     }
 
-    @PutMapping(name="/{videogameId}/genre")
-    public VideogameDTO addGenre(List<Long> genreIds,@PathVariable("videogameId") Long id){
+    @PutMapping(value="/{videogameId}/genre")
+    public VideogameDTO addGenre(@RequestBody List<Long> genreIds,@PathVariable("videogameId") Long id){
         return this.service.addGenre(genreIds,id);
     }
 
