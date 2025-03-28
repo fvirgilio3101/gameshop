@@ -34,7 +34,7 @@ public class Videogame {
     private List<Order> orders;
 
     @Column(name="Rating",nullable = false, length= 50)
-    private double rating;
+    private Double rating;
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -44,11 +44,11 @@ public class Videogame {
         this.priceVideogame = priceVideogame;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

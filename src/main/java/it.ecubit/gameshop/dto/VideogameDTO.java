@@ -16,7 +16,7 @@ public class VideogameDTO {
 
     private String descVideogame;
 
-    private double rating;
+    private Double rating;
 
 
     public Long getIdVideogame() {
@@ -59,11 +59,11 @@ public class VideogameDTO {
         this.descVideogame = descVideogame;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }
