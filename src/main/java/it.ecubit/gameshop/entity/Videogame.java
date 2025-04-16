@@ -33,8 +33,8 @@ public class Videogame {
     @ManyToMany( cascade = { CascadeType.ALL },mappedBy = "videogames")
     private List<Order> orders;
 
-    @Column(name="Rating",nullable = false, length= 50)
-    private Double rating;
+    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings;
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -42,14 +42,6 @@ public class Videogame {
 
     public void setPriceVideogame(Double priceVideogame) {
         this.priceVideogame = priceVideogame;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
     }
 
     public String getTitleVideogame() {
@@ -98,5 +90,24 @@ public class Videogame {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    @Transient
+    public Double getAverageRating() {
+        if (ratings == null || ratings.isEmpty()) {
+            return null; // o 0.0
+        }
+        return ratings.stream()
+                .mapToDouble(Rating::getValue)
+                .average()
+                .orElse(0.0);
     }
 }

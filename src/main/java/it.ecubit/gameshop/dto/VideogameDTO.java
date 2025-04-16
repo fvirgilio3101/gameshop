@@ -1,7 +1,5 @@
 package it.ecubit.gameshop.dto;
 
-import jakarta.persistence.Column;
-
 import java.util.List;
 
 public class VideogameDTO {
@@ -16,7 +14,7 @@ public class VideogameDTO {
 
     private String descVideogame;
 
-    private Double rating;
+    private List<RatingDTO> ratings;
 
 
     public Long getIdVideogame() {
@@ -59,11 +57,16 @@ public class VideogameDTO {
         this.descVideogame = descVideogame;
     }
 
-    public Double getRating() {
-        return rating;
+    public List<RatingDTO> getRatings() {
+        return ratings;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setRatings(List<RatingDTO> rating) {
+        this.ratings = rating;
+    }
+
+    public Double getAverageRating() {
+        if (ratings == null || ratings.isEmpty()) return 0.0;
+        return ratings.stream().mapToDouble(RatingDTO::getValue).average().orElse(0.0);
     }
 }
