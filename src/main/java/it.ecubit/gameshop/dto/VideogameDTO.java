@@ -14,7 +14,7 @@ public class VideogameDTO {
 
     private String descVideogame;
 
-    private List<RatingDTO> ratings;
+    private Double rating;
 
 
     public Long getIdVideogame() {
@@ -57,16 +57,11 @@ public class VideogameDTO {
         this.descVideogame = descVideogame;
     }
 
-    public List<RatingDTO> getRatings() {
-        return ratings;
+    public Double getRating() {
+        return rating;
     }
 
-    public void setRatings(List<RatingDTO> rating) {
-        this.ratings = rating;
-    }
-
-    public Double getAverageRating() {
-        if (ratings == null || ratings.isEmpty()) return 0.0;
-        return ratings.stream().mapToDouble(RatingDTO::getValue).average().orElse(0.0);
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }

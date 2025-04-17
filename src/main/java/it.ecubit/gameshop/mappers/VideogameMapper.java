@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface VideogameMapper {
 
-    @Mapping(target = "ratings", ignore = true)
+    @Mapping(target = "rating", expression = "java(videogame.getAverageRating())")
     VideogameDTO videogameToVideogameDTO(Videogame videogame);
 
     @Mapping(target = "ratings", ignore = true)
