@@ -10,6 +10,7 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID", nullable = false, length = 18)
     private Long id;
 
     @Column(name = "rating_value", nullable = false)

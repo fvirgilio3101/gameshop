@@ -6,9 +6,9 @@ public class RatingDTO {
 
     private Double value;
 
-    private VideogameDTO videogame;
+    private Long videogameId;
 
-    private UserDTO user;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -26,19 +26,19 @@ public class RatingDTO {
         this.value = value;
     }
 
-    public VideogameDTO getVideogame() {
-        return videogame;
+    public Long getVideogameId() {
+        return videogameId;
     }
 
-    public void setVideogame(VideogameDTO videogame) {
-        this.videogame = videogame;
+    public void setVideogameId(Long videogameId) {
+        this.videogameId = videogameId;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

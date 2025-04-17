@@ -15,9 +15,9 @@ public class RatingController {
 
     @PostMapping("/{videogameId}/rate")
     public RatingDTO rateVideogame(
-            @PathVariable Long videogameId,
-            @RequestParam Long userId,
-            @RequestParam Double value
+            @PathVariable("videogameId") Long videogameId,
+            @RequestParam("userId") Long userId,
+            @RequestParam("value") Double value
     ) {
         return ratingService.rateVideogame(videogameId, userId, value);
     }
