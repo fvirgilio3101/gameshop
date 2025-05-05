@@ -1,0 +1,68 @@
+CREATE DATABASE IF NOT EXISTS gameshop;
+USE gameshop;
+
+CREATE TABLE Genre (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE GSUser (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Surname VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Username VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    Address VARCHAR(50) NOT NULL,
+    Phone_Number VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE GSOrder (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    User_ID BIGINT NOT NULL,
+    Order_Date DATE NOT NULL,
+    Total_price DECIMAL(18, 0) NOT NULL,
+    Address VARCHAR(50) NOT NULL,
+    FOREIGN KEY (User_ID) REFERENCES GSUser(ID)
+);
+
+CREATE TABLE Videogame (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(50) NOT NULL,
+    Price DECIMAL(18, 0) NOT NULL,
+    Description VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Order_Videogame (
+    Order_ID BIGINT NOT NULL,
+    Videogame_ID BIGINT NOT NULL,
+    PRIMARY KEY (Order_ID, Videogame_ID),
+    FOREIGN KEY (Order_ID) REFERENCES GSOrder(ID),
+    FOREIGN KEY (Videogame_ID) REFERENCES Videogame(ID)
+);
+
+CREATE TABLE Payment (
+    ID BIGINT PRIMARY KEY,
+    Payment_Status BOOLEAN NOT NULL,
+    Payment_Method VARCHAR(50) NOT NULL,
+    Payment_Date DATE NOT NULL,
+    FOREIGN KEY (ID) REFERENCES GSOrder(ID)
+);
+
+CREATE TABLE Rating (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    rating_value DECIMAL(18, 0) NOT NULL,
+    videogame_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    UNIQUE KEY uc_rating (videogame_id, user_id),
+    FOREIGN KEY (user_id) REFERENCES GSUser(ID),
+    FOREIGN KEY (videogame_id) REFERENCES Videogame(ID)
+);
+
+CREATE TABLE VideoGame_Genre (
+    Videogame_ID BIGINT NOT NULL,
+    Genre_ID BIGINT NOT NULL,
+    PRIMARY KEY (Videogame_ID, Genre_ID),
+    FOREIGN KEY (Genre_ID) REFERENCES Genre(ID) ON DELETE CASCADE,
+    FOREIGN KEY (Videogame_ID) REFERENCES Videogame(ID) ON DELETE CASCADE
+);
