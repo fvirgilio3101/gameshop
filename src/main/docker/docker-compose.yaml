@@ -12,5 +12,8 @@ services:
     ports:
       - "3307:3306"
     volumes:
+      - "mariadb_data:/var/lib/mysql"
       - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
     restart: unless-stopped
+volumes:
+  mariadb_data:
