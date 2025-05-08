@@ -5,6 +5,7 @@ import it.ecubit.gameshop.service.VideogameIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,5 +26,19 @@ public class VideogameIndexController {
             @RequestParam(value = "price",required = false) Double price
     ) {
         return indexService.search(keyword, price);
+    }
+
+    @GetMapping("/filter")
+    public List<VideogameDocument> getFilteredVideogames(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String releaseAfter) {
+
+        LocalDate releaseAfterDate = null;
+        if (releaseAfter != null) {
+            releaseAfterDate = LocalDate.parse(releaseAfter);
+        }
+
+        return indexService.search(title, maxPrice, releaseAfterDate);
     }
 }
