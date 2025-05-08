@@ -36,4 +36,15 @@ public class VideogameIndexService {
         documentRepository.saveAll(docs);
         System.out.println("Indicizzati " + docs.size() + " documenti su Elasticsearch.");
     }
+    public List<VideogameDocument> search(String keyword, Double price) {
+        if (keyword != null && price != null) {
+            return documentRepository.findByTitleContainingIgnoreCaseAndPriceLessThanEqual(keyword, price);
+        } else if (keyword != null) {
+            return documentRepository.findByTitleContainingIgnoreCase(keyword);
+        } else if (price != null) {
+            return documentRepository.findByPriceLessThanEqual(price);
+        } else {
+            return (List<VideogameDocument>) documentRepository.findAll();
+        }
+    }
 }
