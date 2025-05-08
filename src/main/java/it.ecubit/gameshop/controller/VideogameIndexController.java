@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/index")
+@CrossOrigin(origins = "http://localhost:4200")
 public class VideogameIndexController {
     @Autowired
     private VideogameIndexService indexService;
@@ -30,9 +31,9 @@ public class VideogameIndexController {
 
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) Double maxPrice,
-            @RequestParam(required = false) String releaseAfter) {
+            @RequestParam(value = "keyword",required = false) String title,
+            @RequestParam(value= "price", required = false) Double maxPrice,
+            @RequestParam(value = "releaseAfter",required = false) String releaseAfter) {
 
         LocalDate releaseAfterDate = null;
         if (releaseAfter != null) {
