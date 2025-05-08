@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class VideogameDTO {
@@ -16,6 +17,10 @@ public class VideogameDTO {
 
     private Double rating;
 
+    private Date releaseDateVideogame;
+
+
+    public Date getReleaseDateVideogame() { return releaseDateVideogame; }
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -36,6 +41,8 @@ public class VideogameDTO {
     public List<GenreDTO> getGenres() {
         return genres;
     }
+
+    public void setReleaseDateVideogame(Date releaseDateVideogame) { this.releaseDateVideogame = releaseDateVideogame; }
 
     public void setGenres(List<GenreDTO> genres) {
         this.genres = genres;

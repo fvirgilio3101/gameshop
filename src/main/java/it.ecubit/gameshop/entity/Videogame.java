@@ -2,6 +2,7 @@ package it.ecubit.gameshop.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class Videogame {
 
     @Column(name="Description",nullable = false, length= 50)
     private String descVideogame;
+
+    @Column(name="Release_Date", nullable = false)
+    private Date releaseDateVideogame;
 
     @ManyToMany( cascade = { CascadeType.ALL },mappedBy = "videogames")
     private List<Order> orders;
@@ -59,6 +63,10 @@ public class Videogame {
     public List<Order> getOrders() {
         return orders;
     }
+
+    public Date getReleaseDateVideogame() { return releaseDateVideogame; }
+
+    public void setReleaseDateVideogame(Date releaseDateVideogame) { this.releaseDateVideogame = releaseDateVideogame; }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;

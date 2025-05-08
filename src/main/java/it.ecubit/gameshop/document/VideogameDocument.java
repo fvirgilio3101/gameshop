@@ -3,6 +3,9 @@ package it.ecubit.gameshop.document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Document(indexName = "videogames")
 public class VideogameDocument {
 
@@ -13,6 +16,7 @@ public class VideogameDocument {
     private String description;
     private Double price;
     private Double averageRating;
+    private Date releaseDate;
 
     public String getId() {
         return id;
@@ -53,4 +57,13 @@ public class VideogameDocument {
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 }
+
