@@ -1,9 +1,6 @@
 package it.ecubit.gameshop.service;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import it.ecubit.gameshop.document.VideogameDocument;
 import it.ecubit.gameshop.entity.Videogame;
@@ -39,7 +36,7 @@ public class VideogameIndexService {
             VideogameDocument doc = new VideogameDocument();
             doc.setIdVideogame(vg.getIdVideogame() != null ? vg.getIdVideogame().toString() : "null");
             doc.setTitleVideogame(vg.getTitleVideogame());
-            doc.setDescriptionVideogame(vg.getDescVideogame());
+            doc.setDescVideogame(vg.getDescVideogame());
             doc.setPriceVideogame(vg.getPriceVideogame());
             doc.setRating(vg.getAverageRating());
             doc.setReleaseDateVideogame(vg.getReleaseDateVideogame());
@@ -70,7 +67,7 @@ public class VideogameIndexService {
             List<Query> filterQueries = new ArrayList<>();
 
             if (keyword != null && !keyword.isBlank()) {
-                mustQueries.add(MatchQuery.of(m -> m
+                mustQueries.add(MatchPhrasePrefixQuery.of(m -> m
                         .field("titleVideogame")
                         .query(keyword)
                 )._toQuery());
