@@ -17,6 +17,12 @@ public class VideogameIndexController {
     @Autowired
     private VideogameIndexService indexService;
 
+
+    @PostMapping("/videogames")
+    public void indexAll(){
+        this.indexService.indexAll();
+    }
+
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
             @RequestParam(value = "titleVideogame", required = false) String title,
