@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -63,7 +64,7 @@ public class VideogameIndexService {
         }
     }
 
-    public List<VideogameDocument> search(String keyword, Double maxPrice, LocalDate releaseAfter) {
+    public List<VideogameDocument> search(String keyword, Double maxPrice, Date releaseAfter) {
         try {
             List<Query> mustQueries = new ArrayList<>();
             List<Query> filterQueries = new ArrayList<>();
@@ -95,7 +96,7 @@ public class VideogameIndexService {
             );
 
             SearchResponse<VideogameDocument> response = client.search(s -> s
-                            .index("videogames") // nome ES index
+                            .index("videogames")
                             .query(q -> q.bool(boolQuery)),
                     VideogameDocument.class
             );

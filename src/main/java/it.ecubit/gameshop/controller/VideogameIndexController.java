@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,15 +32,12 @@ public class VideogameIndexController {
 
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
-            @RequestParam(value = "keyword",required = false) String title,
+            @RequestParam(value = "title",required = false) String title,
             @RequestParam(value= "price", required = false) Double maxPrice,
-            @RequestParam(value = "releaseAfter",required = false) String releaseAfter) {
+            @RequestParam(value = "releaseDate",required =  false) Date releaseAfter) {
 
-        LocalDate releaseAfterDate = null;
-        if (releaseAfter != null) {
-            releaseAfterDate = LocalDate.parse(releaseAfter);
-        }
 
-        return indexService.search(title, maxPrice, releaseAfterDate);
+
+        return indexService.search(title, maxPrice, releaseAfter);
     }
 }

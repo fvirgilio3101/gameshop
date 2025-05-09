@@ -1,5 +1,6 @@
 package it.ecubit.gameshop.document;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Document(indexName = "videogames")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VideogameDocument {
 
     @Id
