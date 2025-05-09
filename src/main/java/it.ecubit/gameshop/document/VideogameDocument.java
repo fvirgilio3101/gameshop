@@ -3,6 +3,8 @@ package it.ecubit.gameshop.document;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -14,8 +16,9 @@ public class VideogameDocument {
     @Id
     private String idVideogame;
 
+    @Field(type = FieldType.Text, analyzer = "standard")
     private String titleVideogame;
-    private String descriptionVideogame;
+    private String descVideogame;
     private Double priceVideogame;
     private Double rating;
     private Date releaseDateVideogame;
@@ -36,12 +39,12 @@ public class VideogameDocument {
         this.titleVideogame = titleVideogame;
     }
 
-    public String getDescriptionVideogame() {
-        return descriptionVideogame;
+    public String getDessVideogame() {
+        return descVideogame;
     }
 
-    public void setDescriptionVideogame(String descriptionVideogame) {
-        this.descriptionVideogame = descriptionVideogame;
+    public void setDescVideogame(String descVideogame) {
+        this.descVideogame = descVideogame;
     }
 
     public Double getPriceVideogame() {
