@@ -32,9 +32,9 @@ public class VideogameIndexController {
 
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
-            @RequestParam(value = "title",required = false) String title,
-            @RequestParam(value= "price", required = false) Double maxPrice,
-            @RequestParam(value = "releaseDate",required =  false) Date releaseAfter) {
+            @RequestParam(value = "titleVideogame",required = false) String title,
+            @RequestParam(value= "priceVideogame", required = false) Double maxPrice,
+            @RequestParam(value = "releaseDateVideogame",required =  false) Date releaseAfter) {
 
 
 
