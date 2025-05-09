@@ -37,14 +37,14 @@ public class VideogameIndexService {
 
         List<VideogameDocument> docs = videogames.stream().map(vg -> {
             VideogameDocument doc = new VideogameDocument();
-            doc.setId(vg.getIdVideogame() != null ? vg.getIdVideogame().toString() : "null");
-            doc.setTitle(vg.getTitleVideogame());
-            doc.setDescription(vg.getDescVideogame());
-            doc.setPrice(vg.getPriceVideogame());
-            doc.setAverageRating(vg.getAverageRating());
-            doc.setReleaseDate(vg.getReleaseDateVideogame());
+            doc.setIdVideogame(vg.getIdVideogame() != null ? vg.getIdVideogame().toString() : "null");
+            doc.setTitleVideogame(vg.getTitleVideogame());
+            doc.setDescriptionVideogame(vg.getDescVideogame());
+            doc.setPriceVideogame(vg.getPriceVideogame());
+            doc.setRating(vg.getAverageRating());
+            doc.setReleaseDateVideogame(vg.getReleaseDateVideogame());
 
-            System.out.println("Indicizzazione: " + doc.getTitle()); // Log singolo doc
+            System.out.println("Indicizzazione: " + doc.getTitleVideogame()); // Log singolo doc
             return doc;
         }).toList();
 
@@ -54,11 +54,11 @@ public class VideogameIndexService {
 
     public List<VideogameDocument> search(String keyword, Double price) {
         if (keyword != null && price != null) {
-            return documentRepository.findByTitleContainingIgnoreCaseAndPriceLessThanEqual(keyword, price);
+            return documentRepository.findByTitleVideogameContainingIgnoreCaseAndPriceVideogameLessThanEqual(keyword, price);
         } else if (keyword != null) {
-            return documentRepository.findByTitleContainingIgnoreCase(keyword);
+            return documentRepository.findByTitleVideogameContainingIgnoreCase(keyword);
         } else if (price != null) {
-            return documentRepository.findByPriceLessThanEqual(price);
+            return documentRepository.findByPriceVideogameLessThanEqual(price);
         } else {
             return (List<VideogameDocument>) documentRepository.findAll();
         }
@@ -71,21 +71,21 @@ public class VideogameIndexService {
 
             if (keyword != null && !keyword.isBlank()) {
                 mustQueries.add(MatchQuery.of(m -> m
-                        .field("title")
+                        .field("titleVideogame")
                         .query(keyword)
                 )._toQuery());
             }
 
             if (maxPrice != null) {
                 filterQueries.add(MatchQuery.of(m -> m
-                        .field("price")
+                        .field("priceVideogame")
                         .query(maxPrice)
                 )._toQuery());
             }
 
             if (releaseAfter != null) {
                 filterQueries.add(MatchQuery.of(m -> m
-                        .field("releaseDate")
+                        .field("releaseDateVideogame")
                         .query(releaseAfter.toString())
                 )._toQuery());
             }

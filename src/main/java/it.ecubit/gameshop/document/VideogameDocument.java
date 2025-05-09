@@ -12,60 +12,62 @@ import java.util.Date;
 public class VideogameDocument {
 
     @Id
-    private String id;
+    private String idVideogame;
 
-    private String title;
-    private String description;
-    private Double price;
-    private Double averageRating;
-    private Date releaseDate;
+    private String titleVideogame;
+    private String descriptionVideogame;
+    private Double priceVideogame;
+    private Double rating;
+    private Date releaseDateVideogame;
 
-    public String getId() {
-        return id;
+    public String getIdVideogame() {
+        return idVideogame;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdVideogame(String idVideogame) {
+        this.idVideogame = idVideogame;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleVideogame() {
+        return titleVideogame;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleVideogame(String titleVideogame) {
+        this.titleVideogame = titleVideogame;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionVideogame() {
+        return descriptionVideogame;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionVideogame(String descriptionVideogame) {
+        this.descriptionVideogame = descriptionVideogame;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getPriceVideogame() {
+        return priceVideogame;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setPriceVideogame(Double priceVideogame) {
+        this.priceVideogame = priceVideogame;
     }
 
-    public Double getAverageRating() {
-        return averageRating;
+
+
+    public Date getReleaseDateVideogame() {
+        return releaseDateVideogame;
     }
 
-    public void setAverageRating(Double averageRating) {
-        this.averageRating = averageRating;
+    public void setReleaseDateVideogame(Date releaseDateVideogame) {
+        this.releaseDateVideogame = releaseDateVideogame;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public Double getRating() {
+        return rating;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }
 
