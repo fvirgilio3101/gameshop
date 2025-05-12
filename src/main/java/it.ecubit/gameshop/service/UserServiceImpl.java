@@ -13,7 +13,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 /*import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -135,9 +137,17 @@ public class UserServiceImpl implements UserService {
         String encryptedPassword = passwordEncoder.encode(dto.getPassword());
         dto.setPassword(encryptedPassword);
 
+
         try {
             User savedUser = this.userRepository.save(this.userMapper.userDTOToUser(dto));
             log.info("Utente registrato con successo: {}", savedUser);
+
+            /*UserDetails user = org.springframework.security.core.userdetails.User.builder()
+                    .username(savedUser.getUsername())
+                .password(passwordEncoder.encode(savedUser.getPassword()))
+                    .roles("USER")
+                    .build();
+            new InMemoryUserDetailsManager(user);*/
             return this.userMapper.userToUserDTO(savedUser);
         } catch (Exception e) {
             log.error("Errore durante la registrazione dell'utente: {}", dto, e);
