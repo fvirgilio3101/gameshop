@@ -16,4 +16,6 @@ public interface UserService {
      void deleteUser(UserDTO dtos);
 
      void deleteAll(List<UserDTO> users);
+
+     UserDTO registerUser(UserDTO dto);
 }

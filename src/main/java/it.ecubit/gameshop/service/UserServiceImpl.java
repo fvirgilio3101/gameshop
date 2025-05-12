@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 /*import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public List<UserDTO> readAll() {
@@ -110,6 +115,33 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             log.error("Errore durante l'eliminazione degli utenti", e);
             throw new RuntimeException("Errore durante l'eliminazione di tutti gli utenti", e);
+        }
+    }
+
+    @Override
+    public UserDTO registerUser(UserDTO dto) {
+        log.info("Avvio registrazione utente: {}", dto);
+
+        if (userRepository.existsByUsername(dto.getUsername())) {
+            log.error("Nome utente già esistente: {}", dto.getUsername());
+            throw new IllegalArgumentException("Nome utente già in uso");
+        }
+
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            log.error("Email già in uso: {}", dto.getEmail());
+            throw new IllegalArgumentException("Email già in uso");
+        }
+
+        String encryptedPassword = passwordEncoder.encode(dto.getPassword());
+        dto.setPassword(encryptedPassword);
+
+        try {
+            User savedUser = this.userRepository.save(this.userMapper.userDTOToUser(dto));
+            log.info("Utente registrato con successo: {}", savedUser);
+            return this.userMapper.userToUserDTO(savedUser);
+        } catch (Exception e) {
+            log.error("Errore durante la registrazione dell'utente: {}", dto, e);
+            throw new RuntimeException("Errore durante la registrazione dell'utente", e);
         }
     }
 

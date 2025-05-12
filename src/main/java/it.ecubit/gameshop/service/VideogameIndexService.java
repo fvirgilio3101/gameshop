@@ -55,7 +55,7 @@ public class VideogameIndexService {
         }
 
         if (price != null) {
-            criteria = criteria.and(new Criteria("priceVideogame").greaterThanEqual(price));
+            criteria = criteria.and(new Criteria("priceVideogame").lessThanEqual(price));
         }
 
         if (releaseAfter != null) {
