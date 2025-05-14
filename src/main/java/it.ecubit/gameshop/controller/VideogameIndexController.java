@@ -27,7 +27,8 @@ public class VideogameIndexController {
     public List<VideogameDocument> getFilteredVideogames(
             @RequestParam(value = "titleVideogame", required = false) String title,
             @RequestParam(value = "priceVideogame", required = false) Double maxPrice,
-            @RequestParam(value = "releaseDateVideogame", required = false) String releaseAfter) {
+            @RequestParam(value = "releaseDateVideogame", required = false) String releaseAfter,
+            @RequestParam(value = "platforms", required = false) String platformName) {
 
         Date releaseDate = null;
         if (releaseAfter != null && !releaseAfter.isEmpty()) {
@@ -39,6 +40,6 @@ public class VideogameIndexController {
             }
         }
 
-        return indexService.search(title, maxPrice, releaseDate);
+        return indexService.search(title, maxPrice, releaseDate,platformName);
     }
 }

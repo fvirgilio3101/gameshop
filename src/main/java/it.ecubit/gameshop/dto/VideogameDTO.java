@@ -1,5 +1,7 @@
 package it.ecubit.gameshop.dto;
 
+import it.ecubit.gameshop.entity.Platform;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class VideogameDTO {
     private Double rating;
 
     private Date releaseDateVideogame;
+
+    private List<PlatformDTO> platforms;
 
 
     public Date getReleaseDateVideogame() { return releaseDateVideogame; }
@@ -70,5 +74,13 @@ public class VideogameDTO {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public List<PlatformDTO> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<PlatformDTO> platforms) {
+        this.platforms = platforms;
     }
 }

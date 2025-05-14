@@ -1,13 +1,14 @@
 package it.ecubit.gameshop.service;
 
+import it.ecubit.gameshop.document.PlatformDocument;
+import it.ecubit.gameshop.document.VideogameDocument;
 import it.ecubit.gameshop.dto.GenreDTO;
 import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Genre;
+import it.ecubit.gameshop.entity.Platform;
 import it.ecubit.gameshop.entity.Videogame;
-import it.ecubit.gameshop.mappers.UserMapper;
 import it.ecubit.gameshop.mappers.VideogameMapper;
-import it.ecubit.gameshop.repository.GenreRepository;
-import it.ecubit.gameshop.repository.VideogameRepository;
+import it.ecubit.gameshop.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -29,6 +30,15 @@ public class VideogameServiceImpl implements VideogameService {
 
     @Autowired
     private VideogameMapper videogameMapper;
+
+    @Autowired
+    private PlatformRepository platformRepository;
+
+    @Autowired
+    private PlatformDocumentRepository platformDocumentRepository;
+
+    @Autowired
+    private VideogameDocumentRepository documentRepository;
 
     @Override
     public List<VideogameDTO> readAll() {
@@ -80,6 +90,18 @@ public class VideogameServiceImpl implements VideogameService {
         log.info("Avvio salvataggio del videogioco con id {}", dto.getIdVideogame());
         try {
             Videogame savedVideogame = this.videogameRepository.save(this.videogameMapper.videogameDTOToVideogame(dto));
+            VideogameDocument doc = new VideogameDocument();
+
+            doc.setIdVideogame(savedVideogame.getIdVideogame());
+            doc.setTitleVideogame(savedVideogame.getTitleVideogame());
+            doc.setDescVideogame(savedVideogame.getDescVideogame());
+            doc.setPriceVideogame(savedVideogame.getPriceVideogame());
+            doc.setRating(savedVideogame.getAverageRating());
+            doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame());
+
+            this.documentRepository.save(doc);
+
+
             log.info("Videogame con id {} salvato correttamente", savedVideogame.getIdVideogame());
             return this.videogameMapper.videogameToVideogameDTO(savedVideogame);
         } catch (Exception e) {
@@ -99,6 +121,24 @@ public class VideogameServiceImpl implements VideogameService {
     }
 
     @Override
+    public VideogameDTO addPlatforms(List<Long> platformIds, Long id) {
+        Videogame videogame = this.videogameRepository.getReferenceById(id);
+        List<Platform> platforms = this.platformRepository.findAllById(platformIds);
+        videogame.getPlatforms().addAll(platforms);
+
+        this.videogameRepository.save(videogame);
+
+        VideogameDocument doc = this.documentRepository.findById(id).get();
+        List<PlatformDocument> platformDocuments = (List<PlatformDocument>) this.platformDocumentRepository.findAllById(platformIds);
+        doc.getPlatforms().addAll(platformDocuments);
+
+        this.documentRepository.save(doc);
+
+        return this.videogameMapper.videogameToVideogameDTO(videogame);
+
+    }
+
+    @Override
     public List<VideogameDTO> getTopGamesByGenre(String genre) {
         List<VideogameDTO> dtos = this.videogameRepository.findTopGamesByGenre(genre)
                 .stream()
@@ -112,6 +152,10 @@ public class VideogameServiceImpl implements VideogameService {
     public void deleteVideogame(VideogameDTO dtos) {
         log.info("Avvio cancellazione del videogioco con id {}", dtos.getIdVideogame());
         try {
+
+            VideogameDocument doc = this.documentRepository.findById(dtos.getIdVideogame()).get();
+            this.documentRepository.delete(doc);
+
             this.videogameRepository.delete(this.videogameMapper.videogameDTOToVideogame(dtos));
             log.info("Videogame con id {} cancellato correttamente", dtos.getIdVideogame());
         } catch (Exception e) {

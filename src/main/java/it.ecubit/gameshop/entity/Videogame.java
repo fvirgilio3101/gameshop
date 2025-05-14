@@ -40,56 +40,23 @@ public class Videogame {
     @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings;
 
+    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Platform> platforms;
+
     public Long getIdVideogame() {
         return idVideogame;
     }
 
-    public void setPriceVideogame(Double priceVideogame) {
-        this.priceVideogame = priceVideogame;
+    public void setIdVideogame(Long idVideogame) {
+        this.idVideogame = idVideogame;
     }
 
     public String getTitleVideogame() {
         return titleVideogame;
     }
 
-    public Double getPriceVideogame() {
-        return priceVideogame;
-    }
-
-    public String getDescVideogame() {
-        return descVideogame;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public Date getReleaseDateVideogame() { return releaseDateVideogame; }
-
-    public void setReleaseDateVideogame(Date releaseDateVideogame) { this.releaseDateVideogame = releaseDateVideogame; }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public void setIdVideogame(long idVideogame) {
-        this.idVideogame = idVideogame;
-    }
-
     public void setTitleVideogame(String titleVideogame) {
         this.titleVideogame = titleVideogame;
-    }
-
-    public void setPriceVideogame(double priceVideogame) {
-        this.priceVideogame = priceVideogame;
-    }
-
-    public void setDescVideogame(String descVideogame) {
-        this.descVideogame = descVideogame;
-    }
-
-    public void setIdVideogame(Long idVideogame) {
-        this.idVideogame = idVideogame;
     }
 
     public List<Genre> getGenres() {
@@ -100,12 +67,52 @@ public class Videogame {
         this.genres = genres;
     }
 
+    public Double getPriceVideogame() {
+        return priceVideogame;
+    }
+
+    public void setPriceVideogame(Double priceVideogame) {
+        this.priceVideogame = priceVideogame;
+    }
+
+    public String getDescVideogame() {
+        return descVideogame;
+    }
+
+    public void setDescVideogame(String descVideogame) {
+        this.descVideogame = descVideogame;
+    }
+
+    public Date getReleaseDateVideogame() {
+        return releaseDateVideogame;
+    }
+
+    public void setReleaseDateVideogame(Date releaseDateVideogame) {
+        this.releaseDateVideogame = releaseDateVideogame;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     public List<Rating> getRatings() {
         return ratings;
     }
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
     }
 
     @Transient
@@ -118,4 +125,6 @@ public class Videogame {
                 .average()
                 .orElse(0.0);
     }
+
+
 }

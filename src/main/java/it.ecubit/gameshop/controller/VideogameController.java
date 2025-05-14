@@ -41,4 +41,11 @@ public class VideogameController {
     public List<VideogameDTO> getTopGamesByGenre(@PathVariable("genre_name") String genre){
         return this.service.getTopGamesByGenre(genre);
     }
+
+    @PutMapping(value="/{videogameId}/platform")
+    public VideogameDTO addPlatform(@RequestBody List<Long> platformIds,@PathVariable("videogameId") Long id){
+        return this.service.addPlatforms(platformIds,id);
+    }
+
+
 }

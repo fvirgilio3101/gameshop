@@ -8,26 +8,34 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Document(indexName = "videogames")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VideogameDocument {
 
     @Id
-    private String idVideogame;
+    private Long idVideogame;
 
     @Field(type = FieldType.Text, analyzer = "standard")
     private String titleVideogame;
+
     private String descVideogame;
+
     private Double priceVideogame;
+
     private Double rating;
+
     private Date releaseDateVideogame;
 
-    public String getIdVideogame() {
+    @Field(type = FieldType.Nested)
+    private List<PlatformDocument> platforms;
+
+    public Long getIdVideogame() {
         return idVideogame;
     }
 
-    public void setIdVideogame(String idVideogame) {
+    public void setIdVideogame(Long idVideogame) {
         this.idVideogame = idVideogame;
     }
 
@@ -55,8 +63,6 @@ public class VideogameDocument {
         this.priceVideogame = priceVideogame;
     }
 
-
-
     public Date getReleaseDateVideogame() {
         return releaseDateVideogame;
     }
@@ -71,6 +77,18 @@ public class VideogameDocument {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public String getDescVideogame() {
+        return descVideogame;
+    }
+
+    public List<PlatformDocument> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<PlatformDocument> platforms) {
+        this.platforms = platforms;
     }
 }
 
