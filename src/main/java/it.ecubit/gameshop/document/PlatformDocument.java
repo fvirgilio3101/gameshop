@@ -1,12 +1,14 @@
 package it.ecubit.gameshop.document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = "platforms")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlatformDocument {
 
+    @Id
     private Long idPlatform;
 
     private String name;
