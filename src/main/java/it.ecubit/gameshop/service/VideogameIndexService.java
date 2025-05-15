@@ -4,19 +4,19 @@ import it.ecubit.gameshop.document.VideogameDocument;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.repository.VideogameDocumentRepository;
 import it.ecubit.gameshop.repository.VideogameRepository;
-import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.data.elasticsearch.core.query.Query;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VideogameIndexService {
@@ -41,52 +41,45 @@ public class VideogameIndexService {
             doc.setDescVideogame(vg.getDescVideogame());
             doc.setPriceVideogame(vg.getPriceVideogame());
             doc.setRating(vg.getAverageRating());
-            doc.setReleaseDateVideogame(vg.getReleaseDateVideogame());
+            doc.setReleaseDateVideogame(vg.getReleaseDateVideogame().getTime());
+            doc.setPlatforms(vg.getPlatforms().stream().map(p -> p.getName()).collect(Collectors.toList()));
 
             System.out.println("Indicizzazione: " + doc.getTitleVideogame()); // Log singolo doc
             return doc;
-        }).toList();
+        }).collect(Collectors.toList());
 
         documentRepository.saveAll(docs);
         System.out.println("Indicizzati " + docs.size() + " documenti su Elasticsearch.");
     }
 
-    public List<VideogameDocument> search(String title, Double price, Date releaseAfter,String platformName) {
-
+    public List<VideogameDocument> search(String title, Double price, String releaseAfter, String platformName) {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        Criteria criteria = new Criteria();
 
         if (title != null && !title.isEmpty()) {
-            criteria = criteria.and(new Criteria("titleVideogame").contains(title));
+            boolQuery.must(QueryBuilders.matchQuery("titleVideogame", title));
         }
 
         if (price != null) {
-            criteria = criteria.and(new Criteria("priceVideogame").lessThanEqual(price));
+            boolQuery.must(QueryBuilders.rangeQuery("priceVideogame").lte(price));
         }
 
         if (releaseAfter != null) {
-            criteria = criteria.and(new Criteria("releaseDateVideogame").greaterThanEqual(releaseAfter));
+
+            long releaseAfterMillis = Long.parseLong(releaseAfter);
+            boolQuery.must(QueryBuilders.rangeQuery("releaseDateVideogame").gte(releaseAfterMillis));
         }
 
         if (platformName != null && !platformName.isEmpty()) {
-            BoolQueryBuilder platformBool = QueryBuilders.boolQuery()
-                    .must(QueryBuilders.matchQuery("platforms.name", platformName))
-                    .must(QueryBuilders.matchQuery("platforms.abbreviation", platformName));
-
-            NestedQueryBuilder platformNested = QueryBuilders.nestedQuery(
-                    "platforms",
-                    platformBool,
-                    ScoreMode.None
-            );
-            boolQuery.filter(platformNested);
+            boolQuery.must(QueryBuilders.matchQuery("platforms", platformName));
         }
 
-        CriteriaQuery criteriaQuery = new CriteriaQuery(criteria);
+        String query = boolQuery.toString();
+        Query searchQuery = new StringQuery(query);
 
-        SearchHits<VideogameDocument> searchHits = elasticsearchOperations.search(criteriaQuery, VideogameDocument.class);
+        SearchHits<VideogameDocument> searchHits = elasticsearchOperations.search(searchQuery, VideogameDocument.class);
 
         return searchHits.stream()
                 .map(hit -> hit.getContent())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

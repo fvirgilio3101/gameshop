@@ -30,16 +30,8 @@ public class VideogameIndexController {
             @RequestParam(value = "releaseDateVideogame", required = false) String releaseAfter,
             @RequestParam(value = "platforms", required = false) String platformName) {
 
-        Date releaseDate = null;
-        if (releaseAfter != null && !releaseAfter.isEmpty()) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                releaseDate = sdf.parse(releaseAfter);
-            } catch (ParseException e) {
-                System.out.println("Errore nel parsing della data: " + releaseAfter);
-            }
-        }
 
-        return indexService.search(title, maxPrice, releaseDate,platformName);
+
+        return indexService.search(title, maxPrice, releaseAfter,platformName);
     }
 }

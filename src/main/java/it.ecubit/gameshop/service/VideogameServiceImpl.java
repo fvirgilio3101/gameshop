@@ -1,20 +1,22 @@
 package it.ecubit.gameshop.service;
 
-import it.ecubit.gameshop.document.PlatformDocument;
 import it.ecubit.gameshop.document.VideogameDocument;
-import it.ecubit.gameshop.dto.GenreDTO;
 import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Genre;
 import it.ecubit.gameshop.entity.Platform;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.mappers.VideogameMapper;
-import it.ecubit.gameshop.repository.*;
+import it.ecubit.gameshop.repository.GenreRepository;
+import it.ecubit.gameshop.repository.PlatformRepository;
+import it.ecubit.gameshop.repository.VideogameDocumentRepository;
+import it.ecubit.gameshop.repository.VideogameRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,9 +37,6 @@ public class VideogameServiceImpl implements VideogameService {
     private PlatformRepository platformRepository;
 
     @Autowired
-    private PlatformDocumentRepository platformDocumentRepository;
-
-    @Autowired
     private VideogameDocumentRepository documentRepository;
 
     @Override
@@ -46,7 +45,7 @@ public class VideogameServiceImpl implements VideogameService {
         try {
             List<Videogame> videogames = this.videogameRepository.findAll();
             log.info("Lettura completata, trovati {} videogiochi", videogames.size());
-            List <VideogameDTO> dtos = videogames.stream()
+            List<VideogameDTO> dtos = videogames.stream()
                     .map(videogameMapper::videogameToVideogameDTO)
                     .collect(Collectors.toList());
             return dtos;
@@ -61,7 +60,7 @@ public class VideogameServiceImpl implements VideogameService {
         log.info("Avvio lettura del videogioco con id {}", dto.getIdVideogame());
         try {
             Videogame foundVideogame = this.videogameRepository.getReferenceById(dto.getIdVideogame());
-           return this.videogameMapper.videogameToVideogameDTO(foundVideogame);
+            return this.videogameMapper.videogameToVideogameDTO(foundVideogame);
         } catch (Exception e) {
             log.error("Errore durante la lettura dei videogiochi", e);
             throw new EntityNotFoundException("Videogame non trovato");
@@ -77,7 +76,7 @@ public class VideogameServiceImpl implements VideogameService {
             log.info("Lettura completata, trovati {} videogiochi con il filtro", filteredVideogames.size());
             return filteredVideogames.stream()
                     .map(videogameMapper::videogameToVideogameDTO)
-                    .toList();
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             log.error("Errore durante la lettura dei videogiochi con filtro", e);
             throw new RuntimeException("Errore durante la lettura dei videogiochi con filtro");
@@ -102,23 +101,16 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setDescVideogame(savedVideogame.getDescVideogame());
             doc.setPriceVideogame(savedVideogame.getPriceVideogame());
             doc.setRating(savedVideogame.getAverageRating());
-            doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame());
-            List<PlatformDocument> platformDocuments = savedVideogame.getPlatforms()
+            doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame().getTime());
+
+            // MODIFICATO: Popola la lista di stringhe con i nomi delle piattaforme
+            List<String> platformNames = savedVideogame.getPlatforms()
                     .stream()
-                    .map(platform -> {
-                        PlatformDocument pd = new PlatformDocument();
-                        pd.setIdPlatform(platform.getIdPlatform());
-                        pd.setName(platform.getName());
-                        pd.setAbbreviation(platform.getAbbreviation());
-                        return pd;
-                    })
-                    .toList();
-
-            doc.setPlatforms(platformDocuments);
-
+                    .map(Platform::getName) // Get platform name instead of the whole object
+                    .collect(Collectors.toList());
+            doc.setPlatforms(platformNames);
 
             this.documentRepository.save(doc);
-
 
             log.info("Videogame con id {} salvato correttamente", savedVideogame.getIdVideogame());
             return this.videogameMapper.videogameToVideogameDTO(savedVideogame);
@@ -147,8 +139,8 @@ public class VideogameServiceImpl implements VideogameService {
         this.videogameRepository.save(videogame);
 
         VideogameDocument doc = this.documentRepository.findById(id).get();
-        List<PlatformDocument> platformDocuments = (List<PlatformDocument>) this.platformDocumentRepository.findAllById(platformIds);
-        doc.getPlatforms().addAll(platformDocuments);
+        List<String> platformNames = platforms.stream().map(Platform::getName).collect(Collectors.toList());
+        doc.getPlatforms().addAll(platformNames);
 
         this.documentRepository.save(doc);
 
@@ -161,16 +153,14 @@ public class VideogameServiceImpl implements VideogameService {
         List<VideogameDTO> dtos = this.videogameRepository.findTopGamesByGenre(genre)
                 .stream()
                 .map(videogameMapper::videogameToVideogameDTO)
-                .toList();
+                .collect(Collectors.toList());
         return dtos;
     }
-
 
     @Override
     public void deleteVideogame(VideogameDTO dtos) {
         log.info("Avvio cancellazione del videogioco con id {}", dtos.getIdVideogame());
         try {
-
             VideogameDocument doc = this.documentRepository.findById(dtos.getIdVideogame()).get();
             this.documentRepository.delete(doc);
 
@@ -195,4 +185,3 @@ public class VideogameServiceImpl implements VideogameService {
         }
     }
 }
-

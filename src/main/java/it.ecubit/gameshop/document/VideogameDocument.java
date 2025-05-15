@@ -26,10 +26,12 @@ public class VideogameDocument {
 
     private Double rating;
 
-    private Date releaseDateVideogame;
+    @Field(type = FieldType.Long)
+    private Long releaseDateVideogame;
 
-    @Field(type = FieldType.Nested)
-    private List<PlatformDocument> platforms;
+    // CAMBIATO: Da List<PlatformDocument> a List<String>
+    @Field(type = FieldType.Keyword)  // Use Keyword for exact matches
+    private List<String> platforms;
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -47,7 +49,7 @@ public class VideogameDocument {
         this.titleVideogame = titleVideogame;
     }
 
-    public String getDessVideogame() {
+    public String getDescVideogame() {
         return descVideogame;
     }
 
@@ -63,11 +65,11 @@ public class VideogameDocument {
         this.priceVideogame = priceVideogame;
     }
 
-    public Date getReleaseDateVideogame() {
+    public Long getReleaseDateVideogame() {
         return releaseDateVideogame;
     }
 
-    public void setReleaseDateVideogame(Date releaseDateVideogame) {
+    public void setReleaseDateVideogame(Long releaseDateVideogame) {
         this.releaseDateVideogame = releaseDateVideogame;
     }
 
@@ -79,16 +81,11 @@ public class VideogameDocument {
         this.rating = rating;
     }
 
-    public String getDescVideogame() {
-        return descVideogame;
-    }
-
-    public List<PlatformDocument> getPlatforms() {
+    public List<String> getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(List<PlatformDocument> platforms) {
+    public void setPlatforms(List<String> platforms) {
         this.platforms = platforms;
     }
 }
-
