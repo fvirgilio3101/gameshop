@@ -89,7 +89,12 @@ public class VideogameServiceImpl implements VideogameService {
     public VideogameDTO save(VideogameDTO dto) {
         log.info("Avvio salvataggio del videogioco con id {}", dto.getIdVideogame());
         try {
-            Videogame savedVideogame = this.videogameRepository.save(this.videogameMapper.videogameDTOToVideogame(dto));
+            Videogame videogame = this.videogameMapper.videogameDTOToVideogame(dto);
+            if (videogame.getPlatforms() != null) {
+                videogame.getPlatforms().forEach(platform -> platform.setVideogame(videogame));
+            }
+            Videogame savedVideogame = this.videogameRepository.save(videogame);
+
             VideogameDocument doc = new VideogameDocument();
 
             doc.setIdVideogame(savedVideogame.getIdVideogame());
@@ -98,6 +103,19 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setPriceVideogame(savedVideogame.getPriceVideogame());
             doc.setRating(savedVideogame.getAverageRating());
             doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame());
+            List<PlatformDocument> platformDocuments = savedVideogame.getPlatforms()
+                    .stream()
+                    .map(platform -> {
+                        PlatformDocument pd = new PlatformDocument();
+                        pd.setIdPlatform(platform.getIdPlatform());
+                        pd.setName(platform.getName());
+                        pd.setAbbreviation(platform.getAbbreviation());
+                        return pd;
+                    })
+                    .toList();
+
+            doc.setPlatforms(platformDocuments);
+
 
             this.documentRepository.save(doc);
 
