@@ -52,7 +52,7 @@ public class VideogameIndexService {
         System.out.println("Indicizzati " + docs.size() + " documenti su Elasticsearch.");
     }
 
-    public List<VideogameDocument> search(String title, Double price, String releaseAfter, String platformName) {
+    public List<VideogameDocument> search(String title, Double price, String releaseAfter, String platformName,String genre) {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
         if (title != null && !title.isEmpty()) {
@@ -71,6 +71,9 @@ public class VideogameIndexService {
 
         if (platformName != null && !platformName.isEmpty()) {
             boolQuery.must(QueryBuilders.matchQuery("platforms", platformName));
+        }
+        if(genre != null && !genre.isEmpty()){
+            boolQuery.must(QueryBuilders.matchQuery("genres", genre));
         }
 
         String query = boolQuery.toString();

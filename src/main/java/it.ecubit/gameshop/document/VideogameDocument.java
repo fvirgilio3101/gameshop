@@ -29,9 +29,19 @@ public class VideogameDocument {
     @Field(type = FieldType.Long)
     private Long releaseDateVideogame;
 
-    // CAMBIATO: Da List<PlatformDocument> a List<String>
-    @Field(type = FieldType.Keyword)  // Use Keyword for exact matches
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    @Field(type = FieldType.Keyword)
     private List<String> platforms;
+
+    @Field(type=FieldType.Keyword)
+    private List<String>genres;
 
     public Long getIdVideogame() {
         return idVideogame;

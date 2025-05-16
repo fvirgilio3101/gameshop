@@ -103,10 +103,10 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setRating(savedVideogame.getAverageRating());
             doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame().getTime());
 
-            // MODIFICATO: Popola la lista di stringhe con i nomi delle piattaforme
+
             List<String> platformNames = savedVideogame.getPlatforms()
                     .stream()
-                    .map(Platform::getName) // Get platform name instead of the whole object
+                    .map(Platform::getName)
                     .collect(Collectors.toList());
             doc.setPlatforms(platformNames);
 
@@ -126,6 +126,12 @@ public class VideogameServiceImpl implements VideogameService {
         List<Genre> genres = this.genreRepository.findAllById(genreIds);
         videogame.getGenres().addAll(genres);
         this.videogameRepository.save(videogame);
+        List<String> genresDoc = genres.stream()
+                .map(Genre::getName)
+                .collect(Collectors.toList());
+        VideogameDocument doc = this.documentRepository.findById(id).get();
+        doc.getGenres().addAll(genresDoc);
+        this.documentRepository.save(doc);
         return this.videogameMapper.videogameToVideogameDTO(videogame);
 
     }

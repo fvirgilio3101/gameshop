@@ -28,10 +28,11 @@ public class VideogameIndexController {
             @RequestParam(value = "titleVideogame", required = false) String title,
             @RequestParam(value = "priceVideogame", required = false) Double maxPrice,
             @RequestParam(value = "releaseDateVideogame", required = false) String releaseAfter,
-            @RequestParam(value = "platforms", required = false) String platformName) {
+            @RequestParam(value = "platforms", required = false) String platformName,
+            @RequestParam(value = "genres", required = false)String genre) {
 
 
 
-        return indexService.search(title, maxPrice, releaseAfter,platformName);
+        return indexService.search(title, maxPrice, releaseAfter,platformName,genre);
     }
 }
