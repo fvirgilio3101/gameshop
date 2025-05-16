@@ -89,6 +89,15 @@ public class VideogameServiceImpl implements VideogameService {
         log.info("Avvio salvataggio del videogioco con id {}", dto.getIdVideogame());
         try {
             Videogame videogame = this.videogameMapper.videogameDTOToVideogame(dto);
+
+            if (dto.getGenres() != null) {
+                List<Genre> managedGenres = dto.getGenres().stream()
+                        .map(genreDTO -> genreRepository.findById(genreDTO.getIdGenre())
+                                .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + genreDTO.getIdGenre())))
+                        .collect(Collectors.toList());
+                videogame.setGenres(managedGenres);
+            }
+
             if (videogame.getPlatforms() != null) {
                 videogame.getPlatforms().forEach(platform -> platform.setVideogame(videogame));
             }
@@ -98,6 +107,10 @@ public class VideogameServiceImpl implements VideogameService {
 
             doc.setIdVideogame(savedVideogame.getIdVideogame());
             doc.setTitleVideogame(savedVideogame.getTitleVideogame());
+            List<String> genresDoc = savedVideogame.getGenres().stream()
+                    .map(Genre::getName)
+                    .collect(Collectors.toList());
+            doc.setGenres(genresDoc);
             doc.setDescVideogame(savedVideogame.getDescVideogame());
             doc.setPriceVideogame(savedVideogame.getPriceVideogame());
             doc.setRating(savedVideogame.getAverageRating());
@@ -130,7 +143,7 @@ public class VideogameServiceImpl implements VideogameService {
                 .map(Genre::getName)
                 .collect(Collectors.toList());
         VideogameDocument doc = this.documentRepository.findById(id).get();
-        doc.getGenres().addAll(genresDoc);
+        doc.setGenres(genresDoc);
         this.documentRepository.save(doc);
         return this.videogameMapper.videogameToVideogameDTO(videogame);
 
@@ -146,7 +159,7 @@ public class VideogameServiceImpl implements VideogameService {
 
         VideogameDocument doc = this.documentRepository.findById(id).get();
         List<String> platformNames = platforms.stream().map(Platform::getName).collect(Collectors.toList());
-        doc.getPlatforms().addAll(platformNames);
+        doc.setPlatforms(platformNames);
 
         this.documentRepository.save(doc);
 

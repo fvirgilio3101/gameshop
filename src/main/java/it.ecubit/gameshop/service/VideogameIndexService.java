@@ -70,10 +70,15 @@ public class VideogameIndexService {
         }
 
         if (platformName != null && !platformName.isEmpty()) {
-            boolQuery.must(QueryBuilders.matchQuery("platforms", platformName));
+            for (String platform : platformName.split(",")) {
+                boolQuery.must(QueryBuilders.termQuery("platforms", platform.trim()));
+            }
         }
-        if(genre != null && !genre.isEmpty()){
-            boolQuery.must(QueryBuilders.matchQuery("genres", genre));
+
+        if (genre != null && !genre.isEmpty()) {
+            for (String g : genre.split(",")) {
+                boolQuery.must(QueryBuilders.termQuery("genres", g.trim()));
+            }
         }
 
         String query = boolQuery.toString();

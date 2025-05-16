@@ -20,14 +20,20 @@ public class VideogameDocument {
     @Field(type = FieldType.Text, analyzer = "standard")
     private String titleVideogame;
 
-    private String descVideogame;
+    @Field(type=FieldType.Keyword)
+    private List<String>genres;
 
     private Double priceVideogame;
+
+    private String descVideogame;
 
     private Double rating;
 
     @Field(type = FieldType.Long)
     private Long releaseDateVideogame;
+
+    @Field(type = FieldType.Keyword)
+    private List<String> platforms;
 
     public List<String> getGenres() {
         return genres;
@@ -36,12 +42,6 @@ public class VideogameDocument {
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
-
-    @Field(type = FieldType.Keyword)
-    private List<String> platforms;
-
-    @Field(type=FieldType.Keyword)
-    private List<String>genres;
 
     public Long getIdVideogame() {
         return idVideogame;
