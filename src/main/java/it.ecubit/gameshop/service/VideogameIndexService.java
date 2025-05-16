@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,5 +90,12 @@ public class VideogameIndexService {
         return searchHits.stream()
                 .map(hit -> hit.getContent())
                 .collect(Collectors.toList());
+    }
+
+    public List<VideogameDocument> findAll(){
+        List<VideogameDocument> docs = new ArrayList<>();
+        documentRepository.findAll().forEach(docs::add);
+        return docs;
+
     }
 }

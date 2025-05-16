@@ -18,6 +18,11 @@ public class VideogameIndexController {
     private VideogameIndexService indexService;
 
 
+    @GetMapping("/videogames")
+    public List<VideogameDocument> findAll(){
+        return this.indexService.findAll();
+    }
+
     @PostMapping("/videogames")
     public void indexAll(){
         this.indexService.indexAll();
