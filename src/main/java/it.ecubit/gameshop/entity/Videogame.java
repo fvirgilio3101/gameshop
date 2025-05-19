@@ -43,6 +43,14 @@ public class Videogame {
     @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Platform> platforms;
 
+    @Column(name="Cover_Image")
+    private String coverImage;
+
+    @ElementCollection
+    @CollectionTable(name = "Videogame_Screenshots", joinColumns = @JoinColumn(name = "videogame_id"))
+    @Column(name = "screenshot_url")
+    private List<String> screenshots;
+
     public Long getIdVideogame() {
         return idVideogame;
     }
@@ -126,5 +134,19 @@ public class Videogame {
                 .orElse(0.0);
     }
 
+    public String getCoverImage() {
+        return coverImage;
+    }
 
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public List<String> getScreenshots() {
+        return screenshots;
+    }
+
+    public void setScreenshots(List<String> screenshots) {
+        this.screenshots = screenshots;
+    }
 }

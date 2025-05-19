@@ -13,20 +13,30 @@ import java.util.List;
 @RequestMapping("api/videogame")
 @CrossOrigin(origins = "http://localhost:4200")
 public class VideogameController {
+
     @Autowired
     private VideogameService service;
+
     @GetMapping
     public List<VideogameDTO> readAll(){
         return this.service.readAll();
     }
+
+    @GetMapping("/{videogameId}")
+    public VideogameDTO read(@PathVariable("videogameId") Long id){
+       return this.service.read(id);
+    }
+
     @PostMapping()
     public VideogameDTO create(@RequestBody VideogameDTO toSave){
         return this.service.save(toSave);
     }
+
     @PutMapping()
     public VideogameDTO save(@RequestBody VideogameDTO toSave){
         return this.service.save(toSave);
     }
+
     @DeleteMapping
     public void delete(@RequestBody VideogameDTO toDelete){
         this.service.deleteVideogame(toDelete);

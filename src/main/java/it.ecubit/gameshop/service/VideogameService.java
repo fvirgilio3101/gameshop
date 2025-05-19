@@ -10,7 +10,7 @@ public interface VideogameService {
 
     List<VideogameDTO> readAll();
 
-    VideogameDTO read(VideogameDTO dto);
+    VideogameDTO read(Long id);
 
     List<VideogameDTO> readByFilter(VideogameDTO dto);
 

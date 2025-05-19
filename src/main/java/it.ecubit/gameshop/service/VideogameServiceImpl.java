@@ -56,10 +56,9 @@ public class VideogameServiceImpl implements VideogameService {
     }
 
     @Override
-    public VideogameDTO read(VideogameDTO dto) {
-        log.info("Avvio lettura del videogioco con id {}", dto.getIdVideogame());
+    public VideogameDTO read(Long id) {
         try {
-            Videogame foundVideogame = this.videogameRepository.getReferenceById(dto.getIdVideogame());
+            Videogame foundVideogame = this.videogameRepository.getReferenceById(id);
             return this.videogameMapper.videogameToVideogameDTO(foundVideogame);
         } catch (Exception e) {
             log.error("Errore durante la lettura dei videogiochi", e);

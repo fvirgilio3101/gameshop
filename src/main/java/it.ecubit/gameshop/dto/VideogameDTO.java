@@ -23,6 +23,19 @@ public class VideogameDTO {
 
     private List<PlatformDTO> platforms;
 
+    private String coverImage;
+
+
+    public List<String> getScreenshots() {
+        return screenshots;
+    }
+
+    public void setScreenshots(List<String> screenshots) {
+        this.screenshots = screenshots;
+    }
+
+    private List<String> screenshots;
+
 
     public Date getReleaseDateVideogame() { return releaseDateVideogame; }
 
@@ -82,5 +95,14 @@ public class VideogameDTO {
 
     public void setPlatforms(List<PlatformDTO> platforms) {
         this.platforms = platforms;
+    }
+
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 }
