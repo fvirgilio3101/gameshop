@@ -28,7 +28,7 @@ public class Videogame {
     @Column(name="Price",nullable = false, length= 50)
     private Double priceVideogame;
 
-    @Column(name="Description",nullable = false, length= 255)
+    @Column(name="Description",nullable = false, length= 500)
     private String descVideogame;
 
     @Column(name="Release_Date", nullable = false)
