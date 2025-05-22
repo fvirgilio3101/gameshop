@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,8 +34,17 @@ public class SecurityConfig {
         http
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/it.ecubit.gameshop/**").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/videogame/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/videogame/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/videogame/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/videogame/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/genre/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/genre/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/index/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/rating/**").hasRole("USER")
+                        .requestMatchers("/login").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")

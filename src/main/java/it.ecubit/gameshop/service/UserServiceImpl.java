@@ -139,6 +139,7 @@ public class UserServiceImpl implements UserService {
 
 
         try {
+            dto.setRole("ROLE_USER");
             User savedUser = this.userRepository.save(this.userMapper.userDTOToUser(dto));
             log.info("Utente registrato con successo: {}", savedUser);
 

@@ -9,6 +9,7 @@ public class UserDTO {
     private String password;
     private String address;
     private String phone_number;
+    private String role;
 
     public Long getIdUser() {
         return idUser;
@@ -59,4 +60,11 @@ public class UserDTO {
         this.phone_number = phone_number;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
