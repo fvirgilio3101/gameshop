@@ -10,6 +10,7 @@ public class UserDTO {
     private String address;
     private String phone_number;
     private String role;
+    private String profileImage;
 
     public Long getIdUser() {
         return idUser;
@@ -66,5 +67,13 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

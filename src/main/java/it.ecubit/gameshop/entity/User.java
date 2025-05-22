@@ -27,6 +27,16 @@ public class User {
     private String phone_number;
     @Column(name="Role",nullable = false, length = 50)
     private String role;
+    @Column(name = "Profile_Image", length = 255)
+    private String profileImage;
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public Long getIdUser() {
         return idUser;

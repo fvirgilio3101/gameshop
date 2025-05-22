@@ -7,13 +7,20 @@ import it.ecubit.gameshop.repository.UserRepository;
 import it.ecubit.gameshop.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -29,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private static final String UPLOAD_DIR = "uploads/profile_images";
+
 
     @GetMapping
     public List<UserDTO> readAll() {
@@ -58,6 +68,7 @@ public class UserController {
     public void delete(@RequestBody UserDTO toDelete) {
         this.service.deleteUser(toDelete);
     }
+
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,6 +88,68 @@ public class UserController {
         return ResponseEntity.ok(service.read(dto));
     }
 
+    @PostMapping("/me/upload-profile-image")
+    public ResponseEntity<?> uploadProfileImage(@RequestParam("file") MultipartFile file) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username == null || username.equals("anonymousUser")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utente non autenticato");
+        }
 
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
+        }
 
+        try {
+            String originalFilename = file.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = "user_" + user.getIdUser() + extension;
+
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            System.out.println("Working dir: " + System.getProperty("user.dir"));
+            System.out.println("Upload dir full path: " + uploadPath.toAbsolutePath());
+
+            // crea la directory se non esiste
+            Files.createDirectories(uploadPath);
+
+            Path filePath = uploadPath.resolve(fileName);
+            Files.write(filePath, file.getBytes());
+
+            user.setProfileImage(fileName);
+            userRepository.save(user);
+
+            return ResponseEntity.ok("Immagine caricata con successo");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'upload");
+        }
+    }
+
+    @GetMapping("/me/profile-image")
+    public ResponseEntity<Resource> getProfileImage() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username == null || username.equals("anonymousUser")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        User user = userRepository.findByUsername(username);
+        if (user == null || user.getProfileImage() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+            Path imagePath = Paths.get(UPLOAD_DIR).resolve(user.getProfileImage());
+            Resource resource = new UrlResource(imagePath.toUri());
+
+            if (!resource.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(imagePath))
+                    .body(resource);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
