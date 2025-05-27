@@ -114,7 +114,6 @@ public class UserController {
             System.out.println("Working dir: " + System.getProperty("user.dir"));
             System.out.println("Upload dir full path: " + uploadPath.toAbsolutePath());
 
-            // crea la directory se non esiste
             Files.createDirectories(uploadPath);
 
             Path filePath = uploadPath.resolve(fileName);
