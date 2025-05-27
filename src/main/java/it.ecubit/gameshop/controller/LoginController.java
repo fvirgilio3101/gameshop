@@ -15,27 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
-
 public class LoginController {
 
     @Autowired
-
     private AuthenticationManager authManager;
 
     @Autowired
-
     private JwtService jwtService;
 
     @PostMapping("/login")
-
     public void login(@RequestBody String username, String password, HttpServletResponse response) throws IOException {
-
         Authentication authentication = authManager.authenticate(
-
                 new UsernamePasswordAuthenticationToken(username, password)
-
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -43,26 +37,20 @@ public class LoginController {
         String jwt = jwtService.generateToken(username);
 
         Cookie cookie = new Cookie("AUTH_TOKEN", jwt);
-
         cookie.setHttpOnly(true);
-
         cookie.setSecure(false);
-
         cookie.setPath("/");
-
         cookie.setMaxAge(86400);
 
         response.addCookie(cookie);
-
         response.setContentType("application/json");
-
         response.getWriter().write("{\"message\":\"Login successful\"}");
 
     }
 
-    @GetMapping("/api/auth/check")
+    @GetMapping("/auth/check")
     public ResponseEntity<?> checkAuth() {
-        return ResponseEntity.ok().body("{\"message\":\"Authenticated\"}");
+        return ResponseEntity.ok().body(Map.of("status", "authenticated"));
     }
 
     @GetMapping("/logout")

@@ -34,29 +34,16 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Autowired
-
     private JwtService jwtService;
 
     @Autowired
-
     private GSUserDetailService userDetailsService;
 
     @Override
-
-    protected void doFilterInternal(HttpServletRequest request,
-
-                                    HttpServletResponse response,
-
-                                    FilterChain filterChain)
-
-            throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = null;
-
         if (request.getCookies() != null) {
-
             for (Cookie cookie : request.getCookies()) {
-
                 if ("AUTH_TOKEN".equals(cookie.getName())) {
 
                     token = cookie.getValue();

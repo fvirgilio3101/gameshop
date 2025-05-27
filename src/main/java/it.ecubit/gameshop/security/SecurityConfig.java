@@ -40,9 +40,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-
 @EnableWebSecurity
-
 public class SecurityConfig {
 
     @Autowired
@@ -86,17 +84,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/videogame/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.DELETE, "/api/videogame/**").hasRole("ADMIN")
-
                         .requestMatchers(HttpMethod.POST, "/api/genre/**").hasRole("ADMIN")
-
                         .requestMatchers(HttpMethod.PUT, "/api/rating/**").hasRole("USER")
-
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER")
-
                         .requestMatchers(HttpMethod.POST, "/api/user/**").hasRole("USER")
-
                         .requestMatchers(HttpMethod.PUT, "/api/user/**").hasRole("USER")
-
                         .anyRequest().authenticated()
 
                 )
