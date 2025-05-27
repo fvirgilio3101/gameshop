@@ -52,64 +52,44 @@ public class SecurityConfig {
     private JwtAuthFilter jwtAuthFilter;
 
     @Bean
-
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
-
                 .csrf(csrf -> csrf.disable())
-
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // usa STATELESS per JWT
                 .authenticationProvider(authenticationProvider())
-
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-
+                .formLogin(form -> form.disable())
+                .logout(logout -> logout.disable())
                 .authorizeHttpRequests(auth -> auth
-
                         .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
-
                         .requestMatchers("/login").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/api/videogame/**").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/api/genre/**").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/api/index/**").permitAll()
-
                         .requestMatchers(HttpMethod.POST, "/api/videogame/**").hasRole("ADMIN")
-
                         .requestMatchers(HttpMethod.PUT, "/api/videogame/**").hasRole("ADMIN")
-
                         .requestMatchers(HttpMethod.DELETE, "/api/videogame/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/genre/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/rating/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/user/**").hasRole("USER")
                         .requestMatchers(HttpMethod.PUT, "/api/user/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/auth/check").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/logout").permitAll()
                         .anyRequest().authenticated()
-
                 )
-
                 .exceptionHandling(ex -> ex
-
                         .authenticationEntryPoint((request, response, authException) -> {
-
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
                             response.setContentType("application/json");
-
                             response.getWriter().write("{\"message\":\"Authentication required\"}");
-
                         })
-
                 );
 
         return http.build();
-
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
