@@ -107,7 +107,7 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setPriceVideogame(savedVideogame.getPriceVideogame());
             doc.setRating(savedVideogame.getAverageRating());
             doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame().getTime());
-            doc.setPlatforms(savedVideogame.getPlatforms());
+            doc.setPlatforms(savedVideogame.getPlatform());
 
 
 

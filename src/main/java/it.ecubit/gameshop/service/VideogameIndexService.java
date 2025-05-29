@@ -43,7 +43,7 @@ public class VideogameIndexService {
             doc.setPriceVideogame(vg.getPriceVideogame());
             doc.setRating(vg.getAverageRating());
             doc.setReleaseDateVideogame(vg.getReleaseDateVideogame().getTime());
-            doc.setPlatforms(vg.getPlatforms());
+            doc.setPlatforms(vg.getPlatform());
 
             System.out.println("Indicizzazione: " + doc.getTitleVideogame()); // Log singolo doc
             return doc;

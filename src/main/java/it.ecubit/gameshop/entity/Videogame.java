@@ -40,42 +40,14 @@ public class Videogame {
     @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings;
 
-    @Column(name="Platforms")
-    private String platforms;
+    @Column(name="Platform")
+    private String platform;
 
     @Column(name="backgroundImage")
     private String backgroundImage;
 
     @Column(name="sales")
     private Integer sales;
-
-    public void setPlatforms(String platforms) {
-        this.platforms = platforms;
-    }
-
-    public String getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public void setBackgroundImage(String backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
-    public Integer getSales() {
-        return sales;
-    }
-
-    public void setSales(Integer sales) {
-        this.sales = sales;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
 
     @Column(name="discount")
     private Double discount;
@@ -152,19 +124,36 @@ public class Videogame {
         this.ratings = ratings;
     }
 
-    public String getPlatforms() {
-        return platforms;
+    public String getPlatform() {
+        return platform;
     }
 
-    @Transient
-    public Double getAverageRating() {
-        if (ratings == null || ratings.isEmpty()) {
-            return null; // o 0.0
-        }
-        return ratings.stream()
-                .mapToDouble(Rating::getValue)
-                .average()
-                .orElse(0.0);
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 
     public String getCoverImage() {
@@ -181,5 +170,16 @@ public class Videogame {
 
     public void setScreenshots(List<String> screenshots) {
         this.screenshots = screenshots;
+    }
+
+    @Transient
+    public Double getAverageRating() {
+        if (ratings == null || ratings.isEmpty()) {
+            return null; // o 0.0
+        }
+        return ratings.stream()
+                .mapToDouble(Rating::getValue)
+                .average()
+                .orElse(0.0);
     }
 }
