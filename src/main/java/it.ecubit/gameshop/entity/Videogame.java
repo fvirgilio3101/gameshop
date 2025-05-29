@@ -40,8 +40,45 @@ public class Videogame {
     @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings;
 
-    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Platform> platforms;
+    @Column(name="Platforms")
+    private String platforms;
+
+    @Column(name="backgroundImage")
+    private String backgroundImage;
+
+    @Column(name="sales")
+    private Integer sales;
+
+    public void setPlatforms(String platforms) {
+        this.platforms = platforms;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    @Column(name="discount")
+    private Double discount;
 
     @Column(name="Cover_Image")
     private String coverImage;
@@ -115,12 +152,8 @@ public class Videogame {
         this.ratings = ratings;
     }
 
-    public List<Platform> getPlatforms() {
+    public String getPlatforms() {
         return platforms;
-    }
-
-    public void setPlatforms(List<Platform> platforms) {
-        this.platforms = platforms;
     }
 
     @Transient

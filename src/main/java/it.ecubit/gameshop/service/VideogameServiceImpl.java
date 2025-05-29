@@ -3,11 +3,9 @@ package it.ecubit.gameshop.service;
 import it.ecubit.gameshop.document.VideogameDocument;
 import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Genre;
-import it.ecubit.gameshop.entity.Platform;
 import it.ecubit.gameshop.entity.Videogame;
 import it.ecubit.gameshop.mappers.VideogameMapper;
 import it.ecubit.gameshop.repository.GenreRepository;
-import it.ecubit.gameshop.repository.PlatformRepository;
 import it.ecubit.gameshop.repository.VideogameDocumentRepository;
 import it.ecubit.gameshop.repository.VideogameRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,8 +31,6 @@ public class VideogameServiceImpl implements VideogameService {
     @Autowired
     private VideogameMapper videogameMapper;
 
-    @Autowired
-    private PlatformRepository platformRepository;
 
     @Autowired
     private VideogameDocumentRepository documentRepository;
@@ -97,9 +93,6 @@ public class VideogameServiceImpl implements VideogameService {
                 videogame.setGenres(managedGenres);
             }
 
-            if (videogame.getPlatforms() != null) {
-                videogame.getPlatforms().forEach(platform -> platform.setVideogame(videogame));
-            }
             Videogame savedVideogame = this.videogameRepository.save(videogame);
 
             VideogameDocument doc = new VideogameDocument();
@@ -114,13 +107,10 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setPriceVideogame(savedVideogame.getPriceVideogame());
             doc.setRating(savedVideogame.getAverageRating());
             doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame().getTime());
+            doc.setPlatforms(savedVideogame.getPlatforms());
 
 
-            List<String> platformNames = savedVideogame.getPlatforms()
-                    .stream()
-                    .map(Platform::getName)
-                    .collect(Collectors.toList());
-            doc.setPlatforms(platformNames);
+
 
             this.documentRepository.save(doc);
 
@@ -148,23 +138,6 @@ public class VideogameServiceImpl implements VideogameService {
 
     }
 
-    @Override
-    public VideogameDTO addPlatforms(List<Long> platformIds, Long id) {
-        Videogame videogame = this.videogameRepository.getReferenceById(id);
-        List<Platform> platforms = this.platformRepository.findAllById(platformIds);
-        videogame.getPlatforms().addAll(platforms);
-
-        this.videogameRepository.save(videogame);
-
-        VideogameDocument doc = this.documentRepository.findById(id).get();
-        List<String> platformNames = platforms.stream().map(Platform::getName).collect(Collectors.toList());
-        doc.setPlatforms(platformNames);
-
-        this.documentRepository.save(doc);
-
-        return this.videogameMapper.videogameToVideogameDTO(videogame);
-
-    }
 
     @Override
     public List<VideogameDTO> getTopGamesByGenre(String genre) {

@@ -18,8 +18,6 @@ public interface VideogameService {
 
     VideogameDTO addGenre(List<Long> genreIds,Long id);
 
-    VideogameDTO addPlatforms(List<Long> platformIds,Long id);
-
     List<VideogameDTO> getTopGamesByGenre(String genre);
 
     void deleteVideogame(VideogameDTO dtos);

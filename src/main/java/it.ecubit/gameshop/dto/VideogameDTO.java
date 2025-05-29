@@ -1,7 +1,5 @@
 package it.ecubit.gameshop.dto;
 
-import it.ecubit.gameshop.entity.Platform;
-
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +19,13 @@ public class VideogameDTO {
 
     private Date releaseDateVideogame;
 
-    private List<PlatformDTO> platforms;
+    private String platform;
+
+    private String backgroundImage;
+
+    private Double discount;
+
+    private Integer sales;
 
     private String coverImage;
 
@@ -36,6 +40,37 @@ public class VideogameDTO {
 
     private List<String> screenshots;
 
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
 
     public Date getReleaseDateVideogame() { return releaseDateVideogame; }
 
@@ -88,15 +123,6 @@ public class VideogameDTO {
     public void setRating(Double rating) {
         this.rating = rating;
     }
-
-    public List<PlatformDTO> getPlatforms() {
-        return platforms;
-    }
-
-    public void setPlatforms(List<PlatformDTO> platforms) {
-        this.platforms = platforms;
-    }
-
 
     public String getCoverImage() {
         return coverImage;

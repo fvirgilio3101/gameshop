@@ -32,8 +32,8 @@ public class VideogameDocument {
     @Field(type = FieldType.Long)
     private Long releaseDateVideogame;
 
-    @Field(type = FieldType.Keyword)
-    private List<String> platforms;
+    @Field(type = FieldType.Text)
+    private String platforms;
 
     public List<String> getGenres() {
         return genres;
@@ -91,11 +91,11 @@ public class VideogameDocument {
         this.rating = rating;
     }
 
-    public List<String> getPlatforms() {
+    public String getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(List<String> platforms) {
+    public void setPlatforms(String platforms) {
         this.platforms = platforms;
     }
 }
