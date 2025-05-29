@@ -29,6 +29,7 @@ public class VideogameDTO {
 
     private String coverImage;
 
+    private List<String> screenshots;
 
     public List<String> getScreenshots() {
         return screenshots;
@@ -38,7 +39,7 @@ public class VideogameDTO {
         this.screenshots = screenshots;
     }
 
-    private List<String> screenshots;
+
 
     public String getBackgroundImage() {
         return backgroundImage;
