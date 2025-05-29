@@ -17,8 +17,9 @@ public class RatingController {
     public RatingDTO rateVideogame(
             @PathVariable("videogameId") Long videogameId,
             @RequestParam("userId") Long userId,
-            @RequestParam("value") Double value
+            @RequestParam("value") Double value,
+            @RequestParam("text") String text
     ) {
-        return ratingService.rateVideogame(videogameId, userId, value);
+        return ratingService.rateVideogame(videogameId, userId, value,text);
     }
 }

@@ -16,6 +16,9 @@ public class Rating {
     @Column(name = "rating_value", nullable = false)
     private Double value;
 
+    @Column(name = "rating_text")
+    private String text;
+
     @ManyToOne
     @JoinColumn(name = "videogame_ID", nullable = false)
     private Videogame videogame;
@@ -24,6 +27,14 @@ public class Rating {
     @JoinColumn(name = "user_ID", nullable = false)
     private User user;
 
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public Long getId() {
         return id;

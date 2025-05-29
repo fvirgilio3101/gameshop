@@ -6,9 +6,19 @@ public class RatingDTO {
 
     private Double value;
 
+    private String text;
+
     private Long videogameId;
 
     private Long userId;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public Long getId() {
         return id;

@@ -4,5 +4,5 @@ import it.ecubit.gameshop.dto.RatingDTO;
 
 public interface RatingService {
 
-    RatingDTO rateVideogame(Long videogameId, Long userId, Double value);
+    RatingDTO rateVideogame(Long videogameId, Long userId, Double value,String text);
 }

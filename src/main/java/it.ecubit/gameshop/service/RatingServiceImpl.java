@@ -28,7 +28,7 @@ public class RatingServiceImpl implements RatingService{
 
 
     @Override
-    public RatingDTO rateVideogame(Long videogameId, Long userId, Double value) {
+    public RatingDTO rateVideogame(Long videogameId, Long userId, Double value, String text) {
 
         Videogame videogame = videogameRepository.getReferenceById(videogameId);
 
@@ -43,6 +43,7 @@ public class RatingServiceImpl implements RatingService{
         rating.setVideogame(videogame);
         rating.setUser(user);
         rating.setValue(value);
+        rating.setText(text);
 
         this.ratingRepository.save(rating);
 
