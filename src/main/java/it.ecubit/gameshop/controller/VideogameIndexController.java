@@ -24,6 +24,12 @@ public class VideogameIndexController {
     }
 
 
+    @GetMapping("/trendings")
+    public List<VideogameDocument> getTrendingsVideogame(){
+        return this.indexService.findDiscountedGames();
+    }
+
+
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
             @RequestParam(value = "titleVideogame", required = false) String title,
@@ -37,8 +43,4 @@ public class VideogameIndexController {
         return indexService.search(title, maxPrice, releaseAfter,platformName,genre);
     }
 
-    @GetMapping("/trendings")
-    public List<VideogameDocument> getTrendingsVideogame(){
-        return this.indexService.findDiscountedGames();
-    }
 }

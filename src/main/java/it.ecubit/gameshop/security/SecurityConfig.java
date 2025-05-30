@@ -67,6 +67,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/videogame/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/genre/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/index/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/videogame/trendings").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/videogame/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/videogame/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/videogame/**").permitAll()
