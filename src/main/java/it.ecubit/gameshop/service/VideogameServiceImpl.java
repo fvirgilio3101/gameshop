@@ -108,9 +108,9 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setRating(savedVideogame.getAverageRating());
             doc.setReleaseDateVideogame(savedVideogame.getReleaseDateVideogame().getTime());
             doc.setPlatforms(savedVideogame.getPlatform());
-
-
-
+            doc.setDiscount(savedVideogame.getDiscount());
+            doc.setDiscountedPrice(savedVideogame.getDiscountedPrice());
+            doc.setCoverImage(savedVideogame.getCoverImage());
 
             this.documentRepository.save(doc);
 
@@ -137,7 +137,6 @@ public class VideogameServiceImpl implements VideogameService {
         return this.videogameMapper.videogameToVideogameDTO(videogame);
 
     }
-
 
     @Override
     public List<VideogameDTO> getTopGamesByGenre(String genre) {
@@ -175,4 +174,5 @@ public class VideogameServiceImpl implements VideogameService {
             throw new RuntimeException("Errore durante la cancellazione di tutti i videogiochi", e);
         }
     }
+
 }

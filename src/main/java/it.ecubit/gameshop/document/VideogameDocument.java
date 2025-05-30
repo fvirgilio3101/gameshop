@@ -35,13 +35,11 @@ public class VideogameDocument {
     @Field(type = FieldType.Text)
     private String platforms;
 
-    public List<String> getGenres() {
-        return genres;
-    }
+    private Double discount;
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
+    private Double discountedPrice;
+
+    private String coverImage;
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -59,12 +57,12 @@ public class VideogameDocument {
         this.titleVideogame = titleVideogame;
     }
 
-    public String getDescVideogame() {
-        return descVideogame;
+    public List<String> getGenres() {
+        return genres;
     }
 
-    public void setDescVideogame(String descVideogame) {
-        this.descVideogame = descVideogame;
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 
     public Double getPriceVideogame() {
@@ -75,12 +73,12 @@ public class VideogameDocument {
         this.priceVideogame = priceVideogame;
     }
 
-    public Long getReleaseDateVideogame() {
-        return releaseDateVideogame;
+    public String getDescVideogame() {
+        return descVideogame;
     }
 
-    public void setReleaseDateVideogame(Long releaseDateVideogame) {
-        this.releaseDateVideogame = releaseDateVideogame;
+    public void setDescVideogame(String descVideogame) {
+        this.descVideogame = descVideogame;
     }
 
     public Double getRating() {
@@ -91,11 +89,43 @@ public class VideogameDocument {
         this.rating = rating;
     }
 
+    public Long getReleaseDateVideogame() {
+        return releaseDateVideogame;
+    }
+
+    public void setReleaseDateVideogame(Long releaseDateVideogame) {
+        this.releaseDateVideogame = releaseDateVideogame;
+    }
+
     public String getPlatforms() {
         return platforms;
     }
 
     public void setPlatforms(String platforms) {
         this.platforms = platforms;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    public void setDiscountedPrice(Double discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 }

@@ -25,55 +25,13 @@ public class VideogameDTO {
 
     private Double discount;
 
+    private Double discountedPrice;
+
     private Integer sales;
 
     private String coverImage;
 
     private List<String> screenshots;
-
-    public List<String> getScreenshots() {
-        return screenshots;
-    }
-
-    public void setScreenshots(List<String> screenshots) {
-        this.screenshots = screenshots;
-    }
-
-
-
-    public String getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public void setBackgroundImage(String backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
-    public Integer getSales() {
-        return sales;
-    }
-
-    public void setSales(Integer sales) {
-        this.sales = sales;
-    }
-
-    public Date getReleaseDateVideogame() { return releaseDateVideogame; }
 
     public Long getIdVideogame() {
         return idVideogame;
@@ -94,8 +52,6 @@ public class VideogameDTO {
     public List<GenreDTO> getGenres() {
         return genres;
     }
-
-    public void setReleaseDateVideogame(Date releaseDateVideogame) { this.releaseDateVideogame = releaseDateVideogame; }
 
     public void setGenres(List<GenreDTO> genres) {
         this.genres = genres;
@@ -125,11 +81,67 @@ public class VideogameDTO {
         this.rating = rating;
     }
 
+    public Date getReleaseDateVideogame() {
+        return releaseDateVideogame;
+    }
+
+    public void setReleaseDateVideogame(Date releaseDateVideogame) {
+        this.releaseDateVideogame = releaseDateVideogame;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    public void setDiscountedPrice(Double discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
     public String getCoverImage() {
         return coverImage;
     }
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public List<String> getScreenshots() {
+        return screenshots;
+    }
+
+    public void setScreenshots(List<String> screenshots) {
+        this.screenshots = screenshots;
     }
 }

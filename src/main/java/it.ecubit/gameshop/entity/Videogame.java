@@ -182,4 +182,13 @@ public class Videogame {
                 .average()
                 .orElse(0.0);
     }
+
+    @Transient
+    public Double getDiscountedPrice() {
+        if (discount == null || discount <= 0 || priceVideogame == null) {
+            return priceVideogame;
+        }
+        return Math.round(priceVideogame * (1 - discount / 100) * 100.0) / 100.0;
+    }
+
 }

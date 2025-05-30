@@ -26,4 +26,6 @@ public interface VideogameRepository extends JpaRepository<Videogame, Long> {
     )
     List<Videogame> findTopGamesByGenre(@Param("genre") String genre);
 
+    List<Videogame> findByDiscountGreaterThan(Double discount);
+
 }

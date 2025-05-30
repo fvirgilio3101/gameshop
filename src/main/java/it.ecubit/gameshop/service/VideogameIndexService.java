@@ -26,32 +26,8 @@ public class VideogameIndexService {
     private ElasticsearchOperations elasticsearchOperations;
 
     @Autowired
-    VideogameRepository videogameRepository;
-
-    @Autowired
     VideogameDocumentRepository documentRepository;
 
-    public void indexAll() {
-        List<Videogame> videogames = videogameRepository.findAll();
-        System.out.println("Videogiochi trovati nel DB: " + videogames.size());
-
-        List<VideogameDocument> docs = videogames.stream().map(vg -> {
-            VideogameDocument doc = new VideogameDocument();
-            doc.setIdVideogame(vg.getIdVideogame() != null ? vg.getIdVideogame() : null);
-            doc.setTitleVideogame(vg.getTitleVideogame());
-            doc.setDescVideogame(vg.getDescVideogame());
-            doc.setPriceVideogame(vg.getPriceVideogame());
-            doc.setRating(vg.getAverageRating());
-            doc.setReleaseDateVideogame(vg.getReleaseDateVideogame().getTime());
-            doc.setPlatforms(vg.getPlatform());
-
-            System.out.println("Indicizzazione: " + doc.getTitleVideogame()); // Log singolo doc
-            return doc;
-        }).collect(Collectors.toList());
-
-        documentRepository.saveAll(docs);
-        System.out.println("Indicizzati " + docs.size() + " documenti su Elasticsearch.");
-    }
 
     public List<VideogameDocument> search(String title, Double price, String releaseAfter, String platformName,String genre) {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -97,5 +73,9 @@ public class VideogameIndexService {
         documentRepository.findAll().forEach(docs::add);
         return docs;
 
+    }
+
+    public List<VideogameDocument> findDiscountedGames() {
+        return documentRepository.findByDiscountGreaterThan(10.0);
     }
 }

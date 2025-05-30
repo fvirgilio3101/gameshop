@@ -23,10 +23,6 @@ public class VideogameIndexController {
         return this.indexService.findAll();
     }
 
-    @PostMapping("/videogames")
-    public void indexAll(){
-        this.indexService.indexAll();
-    }
 
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
@@ -39,5 +35,10 @@ public class VideogameIndexController {
 
 
         return indexService.search(title, maxPrice, releaseAfter,platformName,genre);
+    }
+
+    @GetMapping("/trendings")
+    public List<VideogameDocument> getTrendingsVideogame(){
+        return this.indexService.findDiscountedGames();
     }
 }
