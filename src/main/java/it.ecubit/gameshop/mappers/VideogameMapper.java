@@ -11,7 +11,8 @@ public interface VideogameMapper {
 
     @Mappings({
             @Mapping(target = "rating", expression = "java(videogame.getAverageRating())"),
-            @Mapping(target = "discountedPrice", expression = "java(videogame.getDiscountedPrice())")
+            @Mapping(target = "discountedPrice", expression = "java(videogame.getDiscountedPrice())"),
+            @Mapping(target = "sales", expression = "java(videogame.getSales())")
     })
     VideogameDTO videogameToVideogameDTO(Videogame videogame);
 

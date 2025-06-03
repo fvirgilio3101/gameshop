@@ -52,6 +52,12 @@ public class VideogameController {
         return this.service.getTopGamesByGenre(genre);
     }
 
+    @GetMapping("/best-sellers-db")
+    public List<VideogameDTO> getBestSellingGamesFromDb() {
+        return this.service.getBestSellingGamesFromDb();
+    }
+
+
 
 
 

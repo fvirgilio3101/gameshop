@@ -78,4 +78,10 @@ public class VideogameIndexService {
     public List<VideogameDocument> findDiscountedGames() {
         return documentRepository.findByDiscountGreaterThan(10.0);
     }
+/*
+    public List<VideogameDocument> findBestSellingGames() {
+        return documentRepository.findBySalesGreaterThan(10);
+    }
+
+ */
 }

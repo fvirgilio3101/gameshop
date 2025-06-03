@@ -28,4 +28,7 @@ public interface VideogameRepository extends JpaRepository<Videogame, Long> {
 
     List<Videogame> findByDiscountGreaterThan(Double discount);
 
+    List<Videogame> findBySalesGreaterThan(Integer sales);
+
+
 }

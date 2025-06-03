@@ -111,6 +111,8 @@ public class VideogameServiceImpl implements VideogameService {
             doc.setDiscount(savedVideogame.getDiscount());
             doc.setDiscountedPrice(savedVideogame.getDiscountedPrice());
             doc.setCoverImage(savedVideogame.getCoverImage());
+            doc.setSales(savedVideogame.getSales());
+
 
             this.documentRepository.save(doc);
 
@@ -148,6 +150,20 @@ public class VideogameServiceImpl implements VideogameService {
     }
 
     @Override
+    public List<VideogameDTO> getBestSellingGamesFromDb() {
+        log.info("Avvio ricerca dei videogiochi più venduti da DB");
+        try {
+            List<Videogame> videogames = videogameRepository.findBySalesGreaterThan(10);
+            return videogames.stream()
+                    .map(videogameMapper::videogameToVideogameDTO)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("Errore durante il recupero dei videogiochi più venduti", e);
+            throw new RuntimeException("Errore durante il recupero dei videogiochi più venduti");
+        }
+    }
+
+    @Override
     public void deleteVideogame(VideogameDTO dtos) {
         log.info("Avvio cancellazione del videogioco con id {}", dtos.getIdVideogame());
         try {
@@ -174,5 +190,7 @@ public class VideogameServiceImpl implements VideogameService {
             throw new RuntimeException("Errore durante la cancellazione di tutti i videogiochi", e);
         }
     }
+
+
 
 }

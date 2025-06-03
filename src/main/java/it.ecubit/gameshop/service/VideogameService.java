@@ -24,5 +24,8 @@ public interface VideogameService {
 
     void deleteAll();
 
+    List<VideogameDTO> getBestSellingGamesFromDb();
+
+
 
 }

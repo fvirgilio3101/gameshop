@@ -41,6 +41,17 @@ public class VideogameDocument {
 
     private String coverImage;
 
+    @Field(type = FieldType.Integer)
+    private Integer sales;
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
     public Long getIdVideogame() {
         return idVideogame;
     }
