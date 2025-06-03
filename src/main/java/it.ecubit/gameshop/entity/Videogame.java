@@ -17,7 +17,7 @@ public class Videogame {
     @Column(name="Title",nullable = false, length= 50)
     private String titleVideogame;
 
-    @ManyToMany(cascade= CascadeType.ALL)
+    @ManyToMany(cascade= CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name="Videogame_Genre",
             joinColumns = @JoinColumn(name = "Videogame_ID"),

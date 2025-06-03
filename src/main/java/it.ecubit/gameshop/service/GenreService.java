@@ -1,6 +1,8 @@
 package it.ecubit.gameshop.service;
 
 import it.ecubit.gameshop.dto.GenreDTO;
+import it.ecubit.gameshop.dto.VideogameDTO;
+import it.ecubit.gameshop.entity.Genre;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface GenreService {
     void delete(GenreDTO dto);
 
     void deleteAll();
+
+    List<Genre> returnGenreListFromDTO(VideogameDTO dto);
 }

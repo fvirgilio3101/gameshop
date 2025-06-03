@@ -1,6 +1,7 @@
 package it.ecubit.gameshop.service;
 
 import it.ecubit.gameshop.dto.GenreDTO;
+import it.ecubit.gameshop.dto.VideogameDTO;
 import it.ecubit.gameshop.entity.Genre;
 import it.ecubit.gameshop.entity.Order;
 import it.ecubit.gameshop.mappers.GenreMapper;
@@ -14,6 +15,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GenreServiceImpl implements GenreService{
@@ -96,5 +98,14 @@ public class GenreServiceImpl implements GenreService{
             log.error("Errore durante l'eliminazione dei generi", e);
             throw new RuntimeException("Errore durante l'eliminazione di tutti i generi", e);
         }
+    }
+
+    @Override
+    public List<Genre> returnGenreListFromDTO(VideogameDTO dto) {
+        List<Genre> managedGenres = dto.getGenres().stream()
+                .map(genreDTO -> genreRepository.findById(genreDTO.getIdGenre())
+                        .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + genreDTO.getIdGenre())))
+                .collect(Collectors.toList());
+        return managedGenres;
     }
 }

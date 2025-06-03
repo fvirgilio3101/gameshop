@@ -28,14 +28,12 @@ public class VideogameIndexController {
     public List<VideogameDocument> getTrendingsVideogame(){
         return this.indexService.findDiscountedGames();
     }
-/*
+
     @GetMapping("/best-sellers")
     public List<VideogameDocument> getBestSellingGames() {
         return indexService.findBestSellingGames();
 
     }
-
- */
 
 
     @GetMapping("/filter")

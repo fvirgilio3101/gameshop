@@ -26,6 +26,8 @@ public interface VideogameService {
 
     List<VideogameDTO> getBestSellingGamesFromDb();
 
+    List<Videogame> getVideogameFromDTO(VideogameDTO dto);
+
 
 
 }

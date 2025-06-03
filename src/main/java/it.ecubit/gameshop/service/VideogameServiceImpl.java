@@ -16,6 +16,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,6 +77,10 @@ public class VideogameServiceImpl implements VideogameService {
             log.error("Errore durante la lettura dei videogiochi con filtro", e);
             throw new RuntimeException("Errore durante la lettura dei videogiochi con filtro");
         }
+    }
+
+    public List<Videogame> getVideogameFromDTO(VideogameDTO dto){
+        return this.videogameRepository.findAll(Example.of(this.videogameMapper.videogameDTOToVideogame(dto)));
     }
 
 

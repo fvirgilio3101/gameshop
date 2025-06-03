@@ -15,8 +15,6 @@ public interface VideogameDocumentRepository extends ElasticsearchRepository<Vid
 
     List<VideogameDocument> findByDiscountGreaterThan(Double discount);
 
-/*
     List<VideogameDocument> findBySalesGreaterThan(Integer sales);
 
- */
 }
