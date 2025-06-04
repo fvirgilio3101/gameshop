@@ -37,7 +37,7 @@ public class Videogame {
     @ManyToMany( cascade = { CascadeType.ALL },mappedBy = "videogames")
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "videogame", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Rating> ratings;
 
     @Column(name="Platform")
@@ -55,7 +55,7 @@ public class Videogame {
     @Column(name="Cover_Image")
     private String coverImage;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "Videogame_Screenshots", joinColumns = @JoinColumn(name = "videogame_id"))
     @Column(name = "screenshot_url")
     private List<String> screenshots;
