@@ -72,6 +72,7 @@ public class ElasticsearchDataLoader {
                     doc.setDiscount(savedVideogame.getDiscount());
                     doc.setDiscountedPrice(savedVideogame.getDiscountedPrice());
                     doc.setCoverImage(savedVideogame.getCoverImage());
+                    doc.setBackgroundImage(savedVideogame.getBackgroundImage());
                     doc.setSales(savedVideogame.getSales());
 
 

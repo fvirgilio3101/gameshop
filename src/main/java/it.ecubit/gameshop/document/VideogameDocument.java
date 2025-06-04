@@ -41,6 +41,8 @@ public class VideogameDocument {
 
     private String coverImage;
 
+    private String backgroundImage;
+
     @Field(type = FieldType.Integer)
     private Integer sales;
 
@@ -138,5 +140,13 @@ public class VideogameDocument {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public String getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 }
