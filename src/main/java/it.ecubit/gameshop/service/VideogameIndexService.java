@@ -29,13 +29,14 @@ public class VideogameIndexService {
     VideogameDocumentRepository documentRepository;
 
 
-    public List<VideogameDocument> search(String title, Double price, String releaseAfter, String platformName,String genre) {
+    public List<VideogameDocument> search(String title) {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
         if (title != null && !title.isEmpty()) {
             boolQuery.must(QueryBuilders.matchQuery("titleVideogame", title));
         }
 
+       /*
         if (price != null) {
             boolQuery.must(QueryBuilders.rangeQuery("priceVideogame").lte(price));
         }
@@ -57,6 +58,7 @@ public class VideogameIndexService {
                 boolQuery.must(QueryBuilders.termQuery("genres", g.trim()));
             }
         }
+        */
 
         String query = boolQuery.toString();
         Query searchQuery = new StringQuery(query);
