@@ -33,32 +33,9 @@ public class VideogameIndexService {
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
         if (title != null && !title.isEmpty()) {
-            boolQuery.must(QueryBuilders.matchQuery("titleVideogame", title));
+            boolQuery.must(QueryBuilders.matchPhrasePrefixQuery("titleVideogame", title));
         }
 
-       /*
-        if (price != null) {
-            boolQuery.must(QueryBuilders.rangeQuery("priceVideogame").lte(price));
-        }
-
-        if (releaseAfter != null) {
-
-            long releaseAfterMillis = Long.parseLong(releaseAfter);
-            boolQuery.must(QueryBuilders.rangeQuery("releaseDateVideogame").gte(releaseAfterMillis));
-        }
-
-        if (platformName != null && !platformName.isEmpty()) {
-            for (String platform : platformName.split(",")) {
-                boolQuery.must(QueryBuilders.termQuery("platforms", platform.trim()));
-            }
-        }
-
-        if (genre != null && !genre.isEmpty()) {
-            for (String g : genre.split(",")) {
-                boolQuery.must(QueryBuilders.termQuery("genres", g.trim()));
-            }
-        }
-        */
 
         String query = boolQuery.toString();
         Query searchQuery = new StringQuery(query);
@@ -69,7 +46,6 @@ public class VideogameIndexService {
                 .map(hit -> hit.getContent())
                 .collect(Collectors.toList());
     }
-
     public List<VideogameDocument> findAll(){
         List<VideogameDocument> docs = new ArrayList<>();
         documentRepository.findAll().forEach(docs::add);
