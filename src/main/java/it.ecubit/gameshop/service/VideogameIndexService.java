@@ -53,6 +53,21 @@ public class VideogameIndexService {
 
     }
 
+    public List<VideogameDocument> findByPlatformKeyword(String keyword) {
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        if (keyword != null && !keyword.isEmpty()) {
+            boolQuery.must(QueryBuilders.matchQuery("platforms",keyword));
+        }
+
+        Query searchQuery = new StringQuery(boolQuery.toString());
+        SearchHits<VideogameDocument> searchHits = elasticsearchOperations.search(searchQuery, VideogameDocument.class);
+
+        return searchHits.stream()
+                .map(hit -> hit.getContent())
+                .collect(Collectors.toList());
+    }
+
     public long count(){
         return this.documentRepository.count();
     }

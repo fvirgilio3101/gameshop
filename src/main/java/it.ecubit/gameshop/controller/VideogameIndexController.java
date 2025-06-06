@@ -35,6 +35,11 @@ public class VideogameIndexController {
 
     }
 
+    @GetMapping("/platform/{keyword}")
+    public List<VideogameDocument> getVideogamesByPlatformKeyword(@PathVariable("keyword") String keyword){
+        return this.indexService.findByPlatformKeyword(keyword);
+    }
+
 
     @GetMapping("/filter")
     public List<VideogameDocument> getFilteredVideogames(
